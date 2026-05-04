@@ -18,15 +18,17 @@ export default function DayCell({ day, tasks, onSelect }: DayCellProps) {
       className={`min-h-28 rounded-3xl border p-3 text-right transition ${
         day.isSelected
           ? "border-cyan-400 bg-cyan-400/12 shadow-lg shadow-cyan-900/30"
-          : "border-white/10 bg-white/5 hover:bg-white/10"
+          : "border-white/10 bg-[#EDE7D9] hover:bg-white/10"
       } ${day.isToday ? "ring-1 ring-emerald-400/60" : ""}`}
     >
       <div className="flex items-start justify-between gap-2">
         <div className="flex flex-col">
-          <span className="text-lg font-semibold text-white">
+          <span className="text-lg font-semibold text-black">
             {formatPersianNumber(day.persian.day)}
           </span>
-          <span className="text-xs text-slate-400">{day.persian.weekdayName}</span>
+          <span className="text-xs text-slate-400">
+            {day.persian.weekdayName}
+          </span>
         </div>
         <span className="rounded-full bg-slate-900/80 px-2 py-1 text-xs text-slate-300">
           {day.gregorianDay}

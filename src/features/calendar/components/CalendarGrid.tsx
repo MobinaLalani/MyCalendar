@@ -12,7 +12,7 @@ export default function CalendarGrid() {
   const planner = usePlanner();
 
   return (
-    <section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-6 bg-slate-950 px-4 py-6 text-slate-100 sm:px-6 lg:px-8">
+    <section className="mx-auto flex min-h-screen w-full  flex-col gap-6 bg-(--background) px-4 py-6 text-slate-100 sm:px-6 lg:px-8">
       <div className="grid gap-4 lg:grid-cols-[1.45fr_0.95fr]">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-2xl shadow-slate-950/30 backdrop-blur">
           <PlannerHeader
