@@ -40,7 +40,7 @@ export default function TaskForm({ onSubmit }: TaskFormProps) {
             }))
           }
           placeholder="مثلا جلسه کاری یا ورزش"
-          className="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400"
+          className="w-full rounded-2xl border border-gray-400 bg-(--surface-muted) px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400"
         />
       </FormField>
 
@@ -55,7 +55,7 @@ export default function TaskForm({ onSubmit }: TaskFormProps) {
               time: event.target.value,
             }))
           }
-          className="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-400"
+          className="w-full rounded-2xl border border-gray-400 bg-(--surface-muted) px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-400"
         />
       </FormField>
 
@@ -71,13 +71,13 @@ export default function TaskForm({ onSubmit }: TaskFormProps) {
           }
           rows={4}
           placeholder="جزئیات، یادآوری یا نکته های مهم"
-          className="w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400"
+          className="w-full rounded-2xl border border-gray-400 bg-(--surface-muted) px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400"
         />
       </FormField>
 
       <button
         type="submit"
-        className="w-full rounded-2xl bg-cyan-500 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+        className="w-full rounded-2xl bg-(--secondary) px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
       >
         ثبت برنامه برای این روز
       </button>

@@ -22,11 +22,13 @@ export default function TaskList({
 }: TaskListProps) {
   return (
     <>
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+      <div className="rounded-3xl  border border-white/10  p-5 backdrop-blur ">
         <div className="flex items-center justify-between gap-3">
           <div>
             <h2 className="text-lg font-semibold text-white">روز انتخاب شده</h2>
-            <p className="mt-1 text-sm text-slate-400">{selectedDateParts.fullLabel}</p>
+            <p className="mt-1 text-sm text-slate-400">
+              {selectedDateParts.fullLabel}
+            </p>
           </div>
           <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-slate-200">
             {getRelativeLabel(selectedDate)}
@@ -36,10 +38,13 @@ export default function TaskList({
         <TaskForm onSubmit={onAddTask} />
       </div>
 
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+      <div className=" rounded-3xl border bg-(--surface-muted) mx-4 p-5 backdrop-blur">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="text-lg font-semibold text-white">برنامه های این روز</h2>
-          <span className="rounded-full bg-violet-500/15 px-3 py-1 text-xs text-violet-100">
+          <h2 className="text-lg font-semibold text-(--text-foreground) leading-none">
+            برنامه های این روز
+          </h2>
+
+          <span className="inline-flex items-center rounded-full bg-violet-500/15 px-3 py-1 text-xs leading-none text-(--text-foreground)">
             {formatPersianNumber(tasks.length)} مورد
           </span>
         </div>

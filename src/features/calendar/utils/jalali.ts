@@ -1,4 +1,8 @@
-import type { CalendarDay, CalendarMonth, PersianDateParts } from "../types/calendar.types";
+import type {
+  CalendarDay,
+  CalendarMonth,
+  PersianDateParts,
+} from "../types/calendar.types";
 
 const persianDateFormatter = new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
   year: "numeric",
@@ -27,6 +31,16 @@ export const WEEKDAY_LABELS = [
   "جمعه",
 ] as const;
 
+export const WEEKDAY_SHORT_LABELS = [
+  "ش",
+  "ی",
+  "د",
+  "س",
+  "چ",
+  "پ",
+  "ج",
+] as const;
+
 const padNumber = (value: number) => value.toString().padStart(2, "0");
 
 export function toDateKey(date: Date) {
@@ -41,7 +55,9 @@ export function parseDateKey(dateKey: string) {
 export function getPersianDateParts(date: Date): PersianDateParts {
   const parts = persianDateFormatter.formatToParts(date);
   const numericParts = persianNumericFormatter.formatToParts(date);
-  const valueByType = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  const valueByType = Object.fromEntries(
+    parts.map((part) => [part.type, part.value]),
+  );
   const numericValueByType = Object.fromEntries(
     numericParts.map((part) => [part.type, part.value]),
   );
@@ -64,7 +80,9 @@ export function isSamePersianMonth(left: Date, right: Date) {
   const leftParts = getPersianDateParts(left);
   const rightParts = getPersianDateParts(right);
 
-  return leftParts.year === rightParts.year && leftParts.month === rightParts.month;
+  return (
+    leftParts.year === rightParts.year && leftParts.month === rightParts.month
+  );
 }
 
 export function getStartOfPersianMonth(anchorDate: Date) {
@@ -118,7 +136,10 @@ export function getTodayDateKey() {
   return toDateKey(new Date());
 }
 
-export function buildCalendarMonth(anchorDate: Date, selectedDateKey: string): CalendarMonth {
+export function buildCalendarMonth(
+  anchorDate: Date,
+  selectedDateKey: string,
+): CalendarMonth {
   const monthDays = getDaysInPersianMonth(anchorDate);
   const monthParts = getPersianDateParts(anchorDate);
   const todayKey = getTodayDateKey();
