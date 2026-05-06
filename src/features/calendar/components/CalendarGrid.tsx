@@ -55,7 +55,7 @@ export default function CalendarGrid() {
 
   return (
     <section className="mx-auto flex min-h-screen w-full  flex-col bg-(--background) px-4 py-6 text-slate-100 sm:px-6 lg:px-8">
-      <div className="grid flex-1 gap-4 xl:grid-cols-[minmax(0,1.9fr)_minmax(22rem,0.78fr)]">
+      <div className="grid flex-1 gap-2 xl:grid-cols-[minmax(0,1.9fr)_minmax(22rem,0.78fr)]">
         <div className="flex h-full flex-col rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
           <MonthNavigator
             monthLabel={planner.calendarMonth.monthLabel}
@@ -74,7 +74,7 @@ export default function CalendarGrid() {
           </div>
         </div>
 
-        <div className="min-h-[22rem] xl:block m-5">
+        <div className="min-h-[22rem] xl:block m-5 ml-10">
           <TaskList
             isOpen={isTaskPanelOpen}
             isCreateMode={panelMode === "create"}

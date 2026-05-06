@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import localFont from "next/font/local";
+import AppShell from "../components/layout/AppShell";
 import Providers from "../lib/react-query";
 import type { Metadata } from "next";
 
@@ -33,7 +34,9 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl" className={yekanBakh.variable}>
       <body className={yekanBakh.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <AppShell>{children}</AppShell>
+        </Providers>
       </body>
     </html>
   );

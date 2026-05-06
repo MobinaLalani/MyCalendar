@@ -92,10 +92,10 @@ export default function TaskList({
             <section className="rounded-3xl border border-black bg-[#cfc8ba] p-4">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-base font-semibold text-white">
+                  <h3 className="text-base font-semibold text-black">
                     لیست تسک های روز
                   </h3>
-                  <span className="inline-flex items-center rounded-full bg-violet-500/15 px-3 py-1 text-xs text-violet-100">
+                  <span className="inline-flex items-center rounded-full bg-violet-500/15 px-3 py-1 text-xs text-black">
                     {formatPersianNumber(tasks.length)} مورد
                   </span>
                 </div>
@@ -145,17 +145,17 @@ type TaskListItemProps = {
 
 function TaskListItem({ task, onToggleTask, onDeleteTask }: TaskListItemProps) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+    <div className="rounded-2xl border border-black bg-white p-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
           <div
             className={`text-sm font-semibold ${
-              task.completed ? "text-emerald-300 line-through" : "text-white"
+              task.completed ? "text-emerald-300 line-through" : "text-black"
             }`}
           >
             {task.title}
           </div>
-          <div className="mt-1 text-xs text-slate-400">{task.time}</div>
+          <div className="mt-1 text-xs text-black">{task.time}</div>
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -164,8 +164,8 @@ function TaskListItem({ task, onToggleTask, onDeleteTask }: TaskListItemProps) {
             onClick={() => onToggleTask(task.id)}
             className={`rounded-xl px-3 py-2 text-xs transition ${
               task.completed
-                ? "bg-amber-500/15 text-amber-100 hover:bg-amber-500/25"
-                : "bg-emerald-500/15 text-emerald-100 hover:bg-emerald-500/25"
+                ? "bg-amber-500/15 text-black hover:bg-amber-500/25"
+                : "bg-emerald-500/15 text-black hover:bg-emerald-500/25"
             }`}
           >
             {task.completed ? "ناتمام" : "انجام شد"}
@@ -173,7 +173,7 @@ function TaskListItem({ task, onToggleTask, onDeleteTask }: TaskListItemProps) {
           <button
             type="button"
             onClick={() => onDeleteTask(task.id)}
-            className="rounded-xl bg-rose-500/15 px-3 py-2 text-xs text-rose-100 transition hover:bg-rose-500/25"
+            className="rounded-xl bg-rose-500/15 px-3 py-2 text-xs text-black transition hover:bg-rose-500/25"
           >
             حذف
           </button>
@@ -181,9 +181,7 @@ function TaskListItem({ task, onToggleTask, onDeleteTask }: TaskListItemProps) {
       </div>
 
       {task.description ? (
-        <p className="mt-3 text-sm leading-7 text-slate-300">
-          {task.description}
-        </p>
+        <p className="mt-3 text-sm leading-7 text-black">{task.description}</p>
       ) : null}
     </div>
   );

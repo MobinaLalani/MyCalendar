@@ -72,7 +72,7 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
         {/* دکمه بزرگ */}
         <button
           type="submit"
-          className="flex-1 rounded-2xl bg-(--surface) border border-black px-3 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+          className="flex-1 rounded-2xl bg-[] border border-black px-3 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
         >
           ثبت برنامه
         </button>

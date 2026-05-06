@@ -18,6 +18,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
   /* 📝 text */
   --text-foreground: #1c1c1c;
+  
   --muted-foreground: #6b6b6b;
 
   /* 🎯 primary */
