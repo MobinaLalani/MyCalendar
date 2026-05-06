@@ -7,18 +7,20 @@ type CalendarMonthGridProps = {
   month: CalendarMonth;
   tasks: PlannerTask[];
   onSelectDate: (dateKey: string) => void;
+  onQuickAdd: (dateKey: string) => void;
 };
 
 export default function CalendarMonthGrid({
   month,
   tasks,
   onSelectDate,
+  onQuickAdd,
 }: CalendarMonthGridProps) {
   return (
     <div className="mt-6">
       <div className="overflow-x-auto pb-2">
         <div className="min-w-[42rem]">
-          <div className="grid grid-cols-7 gap-1.5 text-center text-xs text-[var(--text-muted)] sm:gap-2 sm:text-sm">
+          <div className="grid grid-cols-7 gap-1.5 text-center text-xs text-slate-400 sm:gap-2 sm:text-sm">
             {WEEKDAY_LABELS.map((label, index) => (
               <WeekdayHeaderCell
                 key={label}
@@ -32,7 +34,7 @@ export default function CalendarMonthGrid({
             {Array.from({ length: month.leadingEmptyDays }).map((_, index) => (
               <div
                 key={`empty-${index}`}
-                className="min-h-24 rounded-2xl border border-dashed border-[var(--border-soft)] bg-[var(--background)]/35 sm:min-h-28 sm:rounded-3xl"
+                className="min-h-24 rounded-2xl border border-dashed border-white/5 bg-white/[0.02] sm:min-h-28 sm:rounded-3xl"
               />
             ))}
 
@@ -42,13 +44,14 @@ export default function CalendarMonthGrid({
                 day={day}
                 tasks={getTasksForDate(tasks, day.dateKey)}
                 onSelect={onSelectDate}
+                onQuickAdd={onQuickAdd}
               />
             ))}
           </div>
         </div>
       </div>
 
-      <p className="mt-3 text-xs text-[var(--text-muted)] sm:hidden">
+      <p className="mt-3 text-xs text-slate-500 sm:hidden">
         برای دیدن همه روزهای ماه، تقویم را به صورت افقی اسکرول کن.
       </p>
     </div>
@@ -62,7 +65,7 @@ type WeekdayHeaderCellProps = {
 
 function WeekdayHeaderCell({ label, shortLabel }: WeekdayHeaderCellProps) {
   return (
-    <div className="rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-soft)] px-2 py-2.5 text-[var(--text-base)] sm:py-3">
+    <div className="rounded-2xl bg-white/5 px-2 py-2.5 text-(--text-foreground) font-bold text-xl sm:py-3">
       <span className="sm:hidden">{shortLabel}</span>
       <span className="hidden sm:inline">{label}</span>
     </div>

@@ -1,26 +1,75 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #ffffff;
+  color-scheme: dark;
+  --background:  #FAF4E4;
+  --foreground: #e2e8f0;
+  --primary: #FAF4E4;
+  /* 🌑 base */
+  --background: #f5efe6;
+  --surface: #F7D66C;
+  --surface-muted: #f1eadf;
+
+  /* 🖤 sidebar */
+  --sidebar: #0f0f0f;
+  --sidebar-foreground: #ffffff;
+
+  /* 📝 text */
+  --text-foreground: #1c1c1c;
+  --muted-foreground: #6b6b6b;
+
+  /* 🎯 primary */
+  --primary: #1c1c1c;
+  --primary-foreground: #ffffff;
+
+  /* ✨ accent (زرد) */
+  --accent: #f4d35e;
+  --accent-foreground: #1c1c1c;
+
+  /* 🔵 secondary (آبی) */
+  --secondary: #a7bcd6;
+  --secondary-foreground: #1c1c1c;
+
+  /* ⚠️ states */
+  --success: #22c55e;
+  --warning: #facc15;
+  --error: #ef4444;
+  --info: #0ea5e9;
+
+  /* 🔲 ui */
+  --border: #e5ded3;
+  --ring: #1c1c1c;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ffffff;
-    --foreground: #ffffff;
-  }
+html {
+  background: var(--background);
 }
 
 body {
-  background: var(--background);
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top,#ffffff, transparent 30%),
+    linear-gradient(180deg, #ffffff 0%, #ffffff 100%);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    Tahoma,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
 }
