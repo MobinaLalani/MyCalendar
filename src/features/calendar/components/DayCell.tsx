@@ -23,12 +23,14 @@ export default function DayCell({
       animate="rest"
       whileHover="hover"
       className={`group relative min-h-28 overflow-hidden rounded-3xl border p-3 text-right transition ${
-        day.isSelected
-          ? "border-cyan-400 bg-cyan-400/12 shadow-lg shadow-cyan-900/30"
-          : hasTasks
-            ? "border-violet-400/50 bg-violet-500/10 hover:bg-violet-500/15"
-            : "border-white/10 bg-[#EDE7D9] hover:bg-white/10"
-      } ${day.isToday ? "ring-1 ring-emerald-400/60" : ""}`}
+        day.isToday
+          ? "bg-[#bfcfcd] border-gray-600 shadow-lg" // رنگ پس زمینه امروز
+          : day.isSelected
+            ? "border-gray-600 bg-[#f5cbe2] shadow-lg"
+            : hasTasks
+              ? "border-gray-600 bg-[#F7D66C]"
+              : "border-gray-600 hover:bg-white/10"
+      }`}
     >
       <button
         type="button"

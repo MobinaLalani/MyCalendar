@@ -31,14 +31,14 @@ export default function MonthNavigator({
         <button
           type="button"
           onClick={onToday}
-          className="rounded-2xl border border-(--text-foreground) bg-cyan-400/10 px-4 py-2 text-sm  transition hover:bg-cyan-400/20"
+          className="rounded-2xl border border-(--text-foreground) bg-[#F7D66C] px-4 py-2 text-sm  transition hover:bg-[#e6bc35]"
         >
           امروز
         </button>
         <button
           type="button"
           onClick={onNext}
-          className="rounded-2xl border border-(--text-foreground) bg-white/5 px-4 py-2 text-sm transition hover:bg-white/10"
+          className="rounded-2xl border border-(--text-foreground) bg-white/5  px-4 py-2 text-sm transition hover:bg-white/10"
         >
           ماه بعد
         </button>

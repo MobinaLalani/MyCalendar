@@ -46,7 +46,7 @@ export default function TaskList({
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -32 }}
           transition={{ duration: 0.28, ease: "easeOut" }}
-          className="h-full rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur sm:p-5"
+          className="h-full rounded-3xl border  border-gray-600 p-4 backdrop-blur sm:p-5"
         >
           <div className="flex items-start justify-between gap-3 border-b border-white/10 pb-4">
             <div>
@@ -65,7 +65,7 @@ export default function TaskList({
               <button
                 type="button"
                 onClick={onClose}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-(--text-foreground)transition hover:bg-white/10"
+                className="inline-flex h-9 w-9 items-center  justify-center rounded-full border border-white/10 bg-white/5 text-(--text-foreground)transition hover:bg-white/10"
                 aria-label="بستن پنل"
               >
                 ×
@@ -89,7 +89,7 @@ export default function TaskList({
               ) : null}
             </AnimatePresence>
 
-            <section className="rounded-3xl border border-white/10 bg-[#0f172a]/70 p-4">
+            <section className="rounded-3xl border border-black bg-[#cfc8ba] p-4">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-2">
                   <h3 className="text-base font-semibold text-white">

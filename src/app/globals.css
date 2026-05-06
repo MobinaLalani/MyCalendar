@@ -1,5 +1,7 @@
 @import "tailwindcss";
-
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0); /* 0 برای سیاه */
+}
 :root {
   color-scheme: dark;
   --background:  #FAF4E4;
@@ -8,7 +10,7 @@
   /* 🌑 base */
   --background: #f5efe6;
   --surface: #F7D66C;
-  --surface-muted: #f1eadf;
+  --surface-muted: #F7B7DA;
 
   /* 🖤 sidebar */
   --sidebar: #0f0f0f;
