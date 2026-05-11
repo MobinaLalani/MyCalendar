@@ -22,12 +22,12 @@ export default function AppShell({ children }: AppShellProps) {
       <motion.main
         initial={false}
         animate={{
-          marginLeft: isSidebarOpen ? 288 : 0,
+          marginRight: isSidebarOpen ? 288 : 0,
           scale: isSidebarOpen ? 0.965 : 1,
           borderRadius: isSidebarOpen ? 28 : 0,
         }}
         transition={{ duration: 0.24, ease: "easeOut" }}
-        style={{ transformOrigin: "left top" }}
+        style={{ transformOrigin: "right top" }}
         className="min-h-screen bg-transparent"
       >
         {children}

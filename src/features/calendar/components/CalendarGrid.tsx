@@ -10,7 +10,7 @@ type PanelMode = "view" | "create";
 
 export default function CalendarGrid() {
   const planner = usePlanner();
-  const [isTaskPanelOpen, setIsTaskPanelOpen] = useState(false);
+  const [isTaskPanelOpen, setIsTaskPanelOpen] = useState(true);
   const [panelMode, setPanelMode] = useState<PanelMode>("view");
 
   const handleSelectDate = (dateKey: string) => {
