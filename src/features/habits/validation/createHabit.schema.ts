@@ -1,21 +1,20 @@
 import * as Yup from "yup";
 
    export const validationSchemas = [
-    Yup.object({
-      firstName: Yup.string().required("First name is required"),
-      email: Yup.string(),
-      password: Yup.string(),
-    }),
-    Yup.object({
-      firstName: Yup.string(),
-      email: Yup.string().email("Invalid email").required("Email is required"),
-      password: Yup.string(),
-    }),
-    Yup.object({
-      firstName: Yup.string(),
-      email: Yup.string(),
-      password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .required("Password is required"),
-    }),
-  ];
+     Yup.object({
+       HabitName: Yup.string().required("First name is required"),
+       HabitType: Yup.string(),
+       HabitFrequency: Yup.string(),
+     }),
+     Yup.object({
+       HabitName: Yup.string(),
+       HabitType: Yup.string(),
+       HabitFrequency: Yup.string(),
+     }),
+     Yup.object({
+       HabitName: Yup.string(),
+       HabitType: Yup.string(),
+       HabitFrequency: Yup.string()
+        
+     }),
+   ];

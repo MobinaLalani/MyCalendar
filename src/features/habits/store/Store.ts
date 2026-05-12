@@ -1,24 +1,20 @@
 import { create } from "zustand";
+import { FormValuesType } from "../types/habit.types";
 
-export type FormValues = {
-  firstName: string;
-  email: string;
-  password: string;
-};
 
 type FormStore = {
-  data: FormValues;
-  setField: <K extends keyof FormValues>(
+  data: FormValuesType;
+  setField: <K extends keyof FormValuesType>(
     field: K,
-    value: FormValues[K],
+    value: FormValuesType[K],
   ) => void;
   resetForm: () => void;
 };
 
-const initialData: FormValues = {
-  firstName: "",
-  email: "",
-  password: "",
+const initialData: FormValuesType = {
+  HabitName: "",
+  HabitType: "",
+  HabitFrequency: "",
 };
 
 export const useFormStore = create<FormStore>((set) => ({

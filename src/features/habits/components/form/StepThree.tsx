@@ -1,8 +1,7 @@
 "use client";
 
 import { useFormikContext } from "formik";
-
-// تابع کمکی برای نمایش خطا (اختیاری ولی تمیزتر)
+import { FormValuesType } from "../../types/habit.types";
 const getFieldError = (
   error: unknown,
   touched: boolean | undefined,
@@ -10,16 +9,14 @@ const getFieldError = (
   if (!touched) return null;
   return typeof error === "string" ? error : null;
 };
-export type FormValues = {
-  firstName: string;
-  email: string;
-  password: string;
-};
+
 export default function StepThree() {
   const { values, handleChange, handleBlur, errors, touched } =
-    useFormikContext<FormValues>(); // <any> را با <FormValues> جایگزین کنید
-
-  const passwordError = getFieldError(errors.password, touched.password);
+    useFormikContext<FormValuesType>(); 
+  const passwordError = getFieldError(
+    errors.HabitFrequency,
+    touched.HabitFrequency,
+  );
 
   return (
     <div>
@@ -28,7 +25,7 @@ export default function StepThree() {
         id="password"
         name="password"
         type="password"
-        value={values.password}
+        value={values.HabitFrequency}
         onChange={handleChange}
         onBlur={handleBlur}
         className="border p-2 rounded w-full text-black"

@@ -8,10 +8,11 @@ import {
   type FormikTouched,
   type FormikHelpers,
 } from "formik";
-import StepOne from "./components/form/StepOne";
-import StepTwo from "./components/form/StepTwo";
+import StepOne from "./components/form/HabitName";
+import StepTwo from "./components/form/HabitType";
 import StepThree from "./components/form/StepThree";
 import StepNavigation from "./components/form/StepNavigation";
+import HabitFrequency from "./components/form/HabitFrequency";
 import { useFormStore } from "./store/Store";
 import { validationSchemas } from "./validation/createHabit.schema";
 import { FormValuesType } from "./types/habit.types";
@@ -31,7 +32,7 @@ export default function Index() {
       case 2:
         return <StepTwo />;
       case 3:
-        return <StepThree />;
+        return <HabitFrequency />;
       default:
         return null;
     }
@@ -48,9 +49,9 @@ export default function Index() {
     const errors = await validateForm();
 
     const currentFields: Record<number, Array<keyof FormValuesType>> = {
-      1: ["firstName"],
-      2: ["email"],
-      3: ["password"],
+      1: ["HabitName"],
+      2: ["HabitType"],
+      3: ["HabitFrequency"],
     };
 
     const fields = currentFields[step];
@@ -88,35 +89,42 @@ export default function Index() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6">
-      <h1 className="text-2xl text-black font-bold mb-6">Multi Step Form</h1>
+    <div className="min-h-[94vh] flex pr-5">
+      <div className="grid flex-1 gap-2 xl:grid-cols-[minmax(0,1.6fr)_minmax(22rem,0.78fr)] ">
+        <div className="bg-red-200 p-6">
+          <h1 className="text-2xl text-black font-bold mb-6">
+            Multi Step Form
+          </h1>
+          <Formik<FormValuesType>
+            
+            initialValues={data}
+            enableReinitialize
+            validationSchema={validationSchemas[step - 1]}
+            onSubmit={handleSubmit}
+          >
+            {({ validateForm, setTouched, values, submitForm }) => (
+              <Form className="text-black max-w-2xl mx-auto">
+                <div className="border p-4 rounded-2xl">{renderStep(step)}</div>
 
-      <Formik<FormValuesType>
-        initialValues={data}
-        enableReinitialize
-        validationSchema={validationSchemas[step - 1]}
-        onSubmit={handleSubmit}
-      >
-        {({ validateForm, setTouched, values, submitForm }) => (
-          <Form className="text-black">
-            <div className="border p-4 rounded">{renderStep(step)}</div>
-
-            <StepNavigation
-              currentStep={step}
-              totalSteps={totalSteps}
-              onPrev={handlePrev}
-              onNext={async () => {
-                if (step === totalSteps) {
-                  await submitForm();
-                } else {
-                  await handleNext(validateForm, setTouched, values);
-                }
-              }}
-              isLastStep={step === totalSteps}
-            />
-          </Form>
-        )}
-      </Formik>
+                <StepNavigation
+                  currentStep={step}
+                  totalSteps={totalSteps}
+                  onPrev={handlePrev}
+                  onNext={async () => {
+                    if (step === totalSteps) {
+                      await submitForm();
+                    } else {
+                      await handleNext(validateForm, setTouched, values);
+                    }
+                  }}
+                  isLastStep={step === totalSteps}
+                />
+              </Form>
+            )}
+          </Formik>
+        </div>
+        <div className="bg-yellow-100">sdgvfxgjnjbhmbm</div>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
  export type FormValuesType = {
-   firstName: string;
-   email: string;
-   password: string;
+   HabitName: string;
+   HabitType: string;
+   HabitFrequency: string;
  };
