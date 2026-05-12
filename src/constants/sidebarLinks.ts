@@ -7,9 +7,9 @@ import {
 
 export const SidebarLinks = [
   {
-    href: "/",
-    label: "خانه",
-    description: "نمای کلی پروژه",
+    href: "/habits",
+    label: "عادت ها",
+    description: "ثبت عادت جدید",
     icon: HomeIcon,
   },
   {

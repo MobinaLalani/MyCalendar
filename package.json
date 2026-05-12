@@ -14,13 +14,16 @@
     "@svgr/webpack": "^8.1.0",
     "@tanstack/react-query": "^5.100.8",
     "dayjs": "^1.11.20",
+    "formik": "^2.4.9",
     "framer-motion": "^12.38.0",
     "jalaliday": "^3.1.1",
     "lucide-react": "^0.545.0",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "root": "github:tanstack/react-query"
+    "root": "github:tanstack/react-query",
+    "yup": "^1.7.1",
+    "zustand": "^5.0.13"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

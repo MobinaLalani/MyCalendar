@@ -1,10 +1,9 @@
-import React from 'react'
+import React from 'react';
+import Index from '@/src/features/habits/Index';
 
 function Page() {
   return (
-    <div>
-      این صفحه عادت ها هست
-    </div>
+   <Index/>
   )
 }
 
