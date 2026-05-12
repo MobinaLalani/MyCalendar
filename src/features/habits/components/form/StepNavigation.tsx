@@ -21,21 +21,21 @@ export default function StepNavigation({
         type="button"
         onClick={onPrev}
         disabled={currentStep === 1}
-        className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+        className="px-4 py-2 bg-(--yellow-color) rounded-2xl text-(--text-foreground) disabled:opacity-50 border border-gray-700"
       >
-        Previous
+        قبلی
       </button>
 
       <span>
-        Step {currentStep} / {totalSteps}
+        مرحله {currentStep} / {totalSteps}
       </span>
 
       <button
         type="button"
         onClick={onNext}
-        className="px-4 py-2 bg-blue-600 text-white rounded"
+        className="px-4 py-1 bg-(--yellow-color) text-(--text-foreground) rounded-2xl border border-gray-700"
       >
-        {isLastStep ? "Submit" : "Next"}
+        {isLastStep ? "ثبت اطلاعات" : "بعدی"}
       </button>
     </div>
   );

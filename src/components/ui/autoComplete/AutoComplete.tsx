@@ -45,18 +45,13 @@ const AutoComplete: React.FC<Props> = ({
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  /**
-   * selected option (single mode)
-   */
   const selectedOption = useMemo(() => {
     if (isMulty) return null;
 
     return options.find((opt) => opt.value === field.value) || null;
   }, [options, field.value, isMulty]);
 
-  /**
-   * multi selected options
-   */
+
   const multySelect = useMemo(() => {
     if (!isMulty || !Array.isArray(field.value)) {
       return [];
@@ -65,9 +60,7 @@ const AutoComplete: React.FC<Props> = ({
     return options.filter((opt) => field.value.includes(opt.value));
   }, [field.value, options, isMulty]);
 
-  /**
-   * filtered options
-   */
+
   const filteredOptions = useMemo(() => {
     if (!searchValue.trim()) {
       return options;
@@ -78,9 +71,6 @@ const AutoComplete: React.FC<Props> = ({
     );
   }, [options, searchValue]);
 
-  /**
-   * close dropdown on outside click
-   */
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -161,7 +151,6 @@ const inputValue = isMulty
 
   return (
     <div
-    
       className={`form-control w-full flex flex-col gap-2 ${className}`}
       ref={wrapperRef}
     >

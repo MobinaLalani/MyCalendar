@@ -8,11 +8,6 @@ export default function HabitName() {
     const { values, handleChange, handleBlur, errors, touched } =
       useFormikContext<FormValuesType>();
 
-  const HabitNameError =
-    touched.HabitName && typeof errors.HabitName === "string"
-      ? errors.HabitName
-      : null;
-
   return (
     <div>
       <TextField
@@ -23,9 +18,7 @@ export default function HabitName() {
         name="HabitName"
         label="نام عادت"
       />
-      {HabitNameError && (
-        <p className="text-red-500 text-sm mt-1">{HabitNameError}</p>
-      )}
+
     </div>
   );
 }
