@@ -8,6 +8,7 @@ type TextFieldProps = {
   type?: string;
   value: string | number;
   className?: string;
+  placeholder?:string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
 };
@@ -16,6 +17,7 @@ export default function TextField({
   label,
   name,
   type = "text",
+  placeholder="",
   className = "",
 }: TextFieldProps) {
   const [field, meta] = useField(name);
@@ -30,6 +32,7 @@ export default function TextField({
       <input
         id={name}
         type={type}
+        placeholder={placeholder}
         {...field}
         className={`  w-full rounded-2xl border px-4 py-3 text-sm 
           outline-none transition bob ${className}`}

@@ -10,18 +10,18 @@ import {
 } from "formik";
 import StepOne from "./components/form/HabitName";
 import StepTwo from "./components/form/HabitType";
-import StepThree from "./components/form/StepThree";
 import StepNavigation from "./components/form/StepNavigation";
 import HabitFrequency from "./components/form/HabitFrequency";
 import { useFormStore } from "./store/Store";
 import { validationSchemas } from "./validation/createHabit.schema";
 import { FormValuesType } from "./types/habit.types";
+import HabitStartDate from "./components/form/HabitStartDate";
+import HabitMicroGoal from "./components/form/HabitMicroGoal";
 
 export default function Index() {
   const [step, setStep] = useState<number>(1);
   const { data, setField, resetForm } = useFormStore();
-
-  const totalSteps = 3;
+  const totalSteps = 5;
 
 
 
@@ -33,6 +33,10 @@ export default function Index() {
         return <StepTwo />;
       case 3:
         return <HabitFrequency />;
+      case 4: 
+        return <HabitStartDate />;
+      case 5:
+        return <HabitMicroGoal/>;
       default:
         return null;
     }
@@ -52,6 +56,7 @@ export default function Index() {
       1: ["HabitName"],
       2: ["HabitType"],
       3: ["HabitFrequency"],
+      4: ["HabitStartDate"],
     };
 
     const fields = currentFields[step];
@@ -91,15 +96,14 @@ export default function Index() {
   return (
     <div className="min-h-[94vh] flex pr-5">
       <div className="grid flex-1 gap-2 xl:grid-cols-[minmax(0,1.6fr)_minmax(22rem,0.78fr)] ">
-        <div className="bg-red-200 p-6">
+        <div className=" p-6">
           <h1 className="text-2xl text-black font-bold mb-6">
-            Multi Step Form
+          فرم ثبت عادت خوب 
           </h1>
           <Formik<FormValuesType>
-            
             initialValues={data}
             enableReinitialize
-            validationSchema={validationSchemas[step - 1]}
+            // validationSchema={validationSchemas[step - 1]}
             onSubmit={handleSubmit}
           >
             {({ validateForm, setTouched, values, submitForm }) => (

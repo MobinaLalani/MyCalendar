@@ -34,12 +34,12 @@ export default function HabitFrequency() {
       value: 6,
     },
   ];
-
+ console.log("values", values);
   return (
     <AutoComplete
       onChange={handleChange}
       value={values}
-      name="HabitType"
+      name="HabitFrequency"
       innerClassName="border border-gray-700 rounded-2xl px-5 "
       label="تعداد تکرار عادت"
       placeholder=" تعداد تکرار عادت را مشخص کنید"

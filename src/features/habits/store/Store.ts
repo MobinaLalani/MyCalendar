@@ -15,6 +15,7 @@ const initialData: FormValuesType = {
   HabitName: "",
   HabitType: "",
   HabitFrequency: "",
+  HabitStartDate: "",
 };
 
 export const useFormStore = create<FormStore>((set) => ({
