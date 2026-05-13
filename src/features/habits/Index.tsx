@@ -127,7 +127,7 @@ const { saveHabit, resetForm, data ,setField } = useFormStore();
             )}
           </Formik>
         </div>
-        <div className="bg-yellow-100">sdgvfxgjnjbhmbm</div>
+        <div className="bg-yellow-100">یقثبییبلیبل</div>
       </div>
     </div>
   );
