@@ -13,14 +13,14 @@ import StepTwo from "./components/form/HabitType";
 import StepNavigation from "./components/form/StepNavigation";
 import HabitFrequency from "./components/form/HabitFrequency";
 import { useFormStore } from "./store/Store";
-import { validationSchemas } from "./validation/createHabit.schema";
 import { FormValuesType } from "./types/habit.types";
 import HabitStartDate from "./components/form/HabitStartDate";
 import HabitMicroGoal from "./components/form/HabitMicroGoal";
 
 export default function Index() {
   const [step, setStep] = useState<number>(1);
-  const { data, setField, resetForm } = useFormStore();
+const { saveHabit, resetForm, data ,setField } = useFormStore();
+
   const totalSteps = 5;
 
 
@@ -87,8 +87,8 @@ export default function Index() {
     helpers: FormikHelpers<FormValuesType>,
   ) => {
     console.log("Final Submit:", values);
-    alert("Form submitted successfully!");
-    resetForm();
+    saveHabit(); // عادت را ذخیره کن
+    resetForm(); // فرم را ریست کن
     setStep(1);
     helpers.setSubmitting(false);
   };
