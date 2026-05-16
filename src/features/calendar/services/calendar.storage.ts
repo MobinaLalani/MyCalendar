@@ -1,34 +1,14 @@
 import type { PlannerTask } from "../types/calendar.types";
+import { safeStorage } from "@/src/utils/storage";
 
-const STORAGE_KEY = "mobina-calendar-planner-tasks";
 
-function isBrowser() {
-  return typeof window !== "undefined";
-}
+
 
 export function loadPlannerTasks(): PlannerTask[] {
-  if (!isBrowser()) {
-    return [];
-  }
-
-  try {
-    const storedValue = window.localStorage.getItem(STORAGE_KEY);
-
-    if (!storedValue) {
-      return [];
-    }
-
-    const parsedValue = JSON.parse(storedValue) as unknown;
-    return Array.isArray(parsedValue) ? (parsedValue as PlannerTask[]) : [];
-  } catch {
-    return [];
-  }
+  return safeStorage.get<PlannerTask[]>("mobina-calendar-planner-tasks", []);
 }
 
-export function savePlannerTasks(tasks: PlannerTask[]) {
-  if (!isBrowser()) {
-    return;
-  }
 
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+export function savePlannerTasks(tasks: PlannerTask[]) {
+  safeStorage.set("mobina-calendar-planner-tasks", tasks);
 }

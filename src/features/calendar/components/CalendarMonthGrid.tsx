@@ -1,9 +1,12 @@
 import type { CalendarMonth, PlannerTask } from "../types/calendar.types";
 import { WEEKDAY_LABELS, WEEKDAY_SHORT_LABELS } from "../utils/jalali";
+import { HabitType } from "../../habits/types/habit.type";
+
 import { getTasksForDate } from "../utils/tasks";
 import DayCell from "./DayCell";
 
 type CalendarMonthGridProps = {
+  habits: HabitType[];
   month: CalendarMonth;
   tasks: PlannerTask[];
   onSelectDate: (dateKey: string) => void;
@@ -11,6 +14,7 @@ type CalendarMonthGridProps = {
 };
 
 export default function CalendarMonthGrid({
+  habits,
   month,
   tasks,
   onSelectDate,
@@ -42,6 +46,7 @@ export default function CalendarMonthGrid({
               <DayCell
                 key={day.dateKey}
                 day={day}
+             
                 tasks={getTasksForDate(tasks, day.dateKey)}
                 onSelect={onSelectDate}
                 onQuickAdd={onQuickAdd}

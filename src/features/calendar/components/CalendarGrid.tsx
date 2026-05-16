@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { use, useState } from "react";
 import { usePlanner } from "../hooks/usePlanner";
+import useHabit from "../../habits/hooks/useHabit";
 import CalendarMonthGrid from "./CalendarMonthGrid";
 import MonthNavigator from "./MonthNavigator";
 import TaskList from "./TaskList";
@@ -10,6 +11,8 @@ type PanelMode = "view" | "create";
 
 export default function CalendarGrid() {
   const planner = usePlanner();
+const { habits } = useHabit();
+  console.log("habitsInCalender", habits);
   const [isTaskPanelOpen, setIsTaskPanelOpen] = useState(true);
   const [panelMode, setPanelMode] = useState<PanelMode>("view");
 
@@ -67,6 +70,7 @@ export default function CalendarGrid() {
           <div className="mt-4 flex-1">
             <CalendarMonthGrid
               month={planner.calendarMonth}
+              habits ={habits}
               tasks={planner.tasks}
               onSelectDate={handleSelectDate}
               onQuickAdd={handleQuickAdd}
