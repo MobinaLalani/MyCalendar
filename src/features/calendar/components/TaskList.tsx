@@ -89,7 +89,9 @@ export default function TaskList({
               ) : null}
             </AnimatePresence>
 
-            <section className="rounded-3xl border border-black bg-[#cfc8ba] p-4">
+            <section className="rounded-3xl border border-black bg-[#cfc8ba] p-4"> 
+
+              
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-2">
                   <h3 className="text-base font-semibold text-black">
