@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
+import { HabitType } from "../../habits/types/habit.type";
 import type { CalendarDay, PlannerTask } from "../types/calendar.types";
 import { formatPersianNumber } from "../utils/tasks";
 
 type DayCellProps = {
+  habits: HabitType[];
   day: CalendarDay;
   tasks: PlannerTask[];
   onSelect: (dateKey: string) => void;
@@ -10,13 +12,14 @@ type DayCellProps = {
 };
 
 export default function DayCell({
+  habits,
   day,
   tasks,
   onSelect,
   onQuickAdd,
 }: DayCellProps) {
   const hasTasks = tasks.length > 0;
-
+  const hasHabits = habits.length > 0;
   return (
     <motion.div
       initial="rest"
@@ -24,10 +27,10 @@ export default function DayCell({
       whileHover="hover"
       className={`group relative min-h-28 overflow-hidden rounded-3xl border p-3 text-right transition ${
         day.isToday
-          ? "bg-[#bfcfcd] border-gray-600 shadow-lg" // رنگ پس زمینه امروز
+          ? "bg-[#bfcfcd] border-gray-600 shadow-lg"
           : day.isSelected
             ? "border-gray-600 bg-[#f5cbe2] shadow-lg"
-            : hasTasks
+            : hasTasks || hasHabits
               ? "border-gray-600 bg-[#F7D66C]"
               : "border-gray-600 hover:bg-white/10"
       }`}
@@ -42,27 +45,35 @@ export default function DayCell({
             <span className="text-lg font-semibold text-black">
               {formatPersianNumber(day.persian.day)}
             </span>
+
             <span className="text-xs text-(--text-foreground)">
               {day.persian.weekdayName}
             </span>
           </div>
+
           <span className="rounded-full bg-slate-900/80 px-2 py-1 text-xs text-slate-300">
             {day.gregorianDay}
           </span>
         </div>
 
         <div className="mt-6 flex items-end justify-between">
-          <span
-            className={`text-xs font-medium ${
-              hasTasks ? "text-(--text-foreground)" : "text-slate-500"
-            }`}
-          >
-            {hasTasks ? `${formatPersianNumber(tasks.length)} تسک` : ""}
-          </span>
+          <div className="flex flex-col gap-1">
+            {hasTasks && (
+              <span className="text-xs font-medium text-(--text-foreground)">
+                {formatPersianNumber(tasks.length)} تسک
+              </span>
+            )}
 
-          {hasTasks ? (
+            {hasHabits && (
+              <span className="text-xs font-medium text-(--text-foreground)">
+                {formatPersianNumber(habits.length)} عادت
+              </span>
+            )}
+          </div>
+
+          {(hasTasks || hasHabits) && (
             <span className="h-2.5 w-2.5 rounded-full bg-cyan-300" />
-          ) : null}
+          )}
         </div>
       </button>
 
