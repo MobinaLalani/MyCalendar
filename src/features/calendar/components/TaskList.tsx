@@ -130,6 +130,9 @@ export default function TaskList({
                 ))}
               </div>
             </section>
+            <section className="rounded-3xl border border-black bg-[#cfc8ba] p-4">
+              dgdcxfgzsdfdgv
+            </section>
           </div>
         </motion.aside>
       ) : null}
@@ -166,7 +169,7 @@ function TaskListItem({ task, onToggleTask, onDeleteTask }: TaskListItemProps) {
               task.completed
                 ? "bg-amber-500/15 text-black hover:bg-amber-500/25"
                 : "bg-emerald-500/15 text-black hover:bg-emerald-500/25"
-                
+
             }`}
           >
             {task.completed ? "ناتمام" : "انجام شد"}
