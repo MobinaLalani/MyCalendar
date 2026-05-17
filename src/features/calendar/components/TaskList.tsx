@@ -12,6 +12,7 @@ import { HabitType } from "../../habits/types/habit.type";
 type TaskListProps = {
   isOpen: boolean;
   isCreateMode: boolean;
+  isDetailsOpen: boolean;
   selectedDate: Date;
   selectedDateParts: PersianDateParts;
   habits:HabitType[];
@@ -26,11 +27,13 @@ type TaskListProps = {
   onClose: () => void;
   onStartCreate: () => void;
   onCancelCreate: () => void;
+  onToggleDetails: () => void;
 };
 
 export default function TaskList({
   isOpen,
   isCreateMode,
+  isDetailsOpen,
   selectedDate,
   selectedDateParts,
   habits,
@@ -41,10 +44,9 @@ export default function TaskList({
   onClose,
   onStartCreate,
   onCancelCreate,
+  onToggleDetails,
 }: TaskListProps) {
-     console.log("habits", habits);
   return (
- 
     <AnimatePresence initial={false}>
       {isOpen ? (
         <motion.aside
@@ -107,15 +109,29 @@ export default function TaskList({
                 </div>
 
                 {!isCreateMode ? (
-                  <Tooltip content="افزودن تسک جدید" position="top">
+                  <div className="flex items-center gap-2">
                     <button
                       type="button"
-                      onClick={onStartCreate}
-                      className="px-2 py-2 text-sm font-medium text-slate-950 transition"
+                      onClick={onToggleDetails}
+                      className={`rounded-2xl border px-3 py-2 text-xs font-medium transition ${
+                        isDetailsOpen
+                          ? "border-violet-500/50 bg-violet-500/15 text-black"
+                          : "border-black/20 bg-white/60 text-black hover:bg-white"
+                      }`}
                     >
-                      <PlusIcon className="w-6 h-6 " />
+                      {isDetailsOpen ? "بستن جزئیات" : "نمایش جزئیات"}
                     </button>
-                  </Tooltip>
+
+                    <Tooltip content="افزودن تسک جدید" position="top">
+                      <button
+                        type="button"
+                        onClick={onStartCreate}
+                        className="px-2 py-2 text-sm font-medium text-slate-950 transition"
+                      >
+                        <PlusIcon className="h-6 w-6" />
+                      </button>
+                    </Tooltip>
+                  </div>
                 ) : null}
               </div>
 
@@ -137,9 +153,15 @@ export default function TaskList({
               </div>
             </section>
             <section className="rounded-3xl border border-black bg-[#cfc8ba] p-4">
+              {habits.length === 0 ? (
+                <div className="rounded-2xl border border-dashed border-white/10 px-4 py-5 text-sm text-slate-500">
+                  هنوز عادتی برای این روز پیدا نشد.
+                </div>
+              ) : null}
+
               {habits.map((habit) => (
                 <HabitListItem
-                  key={1}
+                  key={habit.id}
                   habit={habit}
                   onToggleTask={onToggleTask}
                   onDeleteTask={onDeleteTask}
@@ -152,4 +174,3 @@ export default function TaskList({
     </AnimatePresence>
   );
 }
-
