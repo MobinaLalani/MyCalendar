@@ -12,6 +12,7 @@
     toDateKey,
   } from "../../../utils/jalali";
   import { HabitType } from "../types/habit.type";
+  
   import { getHabitsForDate } from "../utils/habits";
 
   function useHabit() {
@@ -31,10 +32,15 @@
         [selectedDateKey, habits],
       );
       
+       const selectedDate = useMemo(
+        () => parseDateKey(selectedDateKey),
+        [selectedDateKey],
+      );
     return {
       habits,
       setHabits,
       selectedHabit,
+      selectedDate,
       selectDate: setSelectedDateKey,
       goToToday,
     };

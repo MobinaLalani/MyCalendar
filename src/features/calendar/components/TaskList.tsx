@@ -42,8 +42,9 @@ export default function TaskList({
   onStartCreate,
   onCancelCreate,
 }: TaskListProps) {
-  
+     console.log("habits", habits);
   return (
+ 
     <AnimatePresence initial={false}>
       {isOpen ? (
         <motion.aside

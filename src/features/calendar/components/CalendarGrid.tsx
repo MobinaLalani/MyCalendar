@@ -1,8 +1,9 @@
 "use client";
 
-import { use, useState } from "react";
+import { useMemo, useState } from "react";
 import { usePlanner } from "../hooks/usePlanner";
 import useHabit from "../../habits/hooks/useHabit";
+import { getHabitsForDate } from "../../habits/utils/habits";
 import CalendarMonthGrid from "./CalendarMonthGrid";
 import MonthNavigator from "./MonthNavigator";
 import TaskList from "./TaskList";
@@ -11,9 +12,14 @@ type PanelMode = "view" | "create";
 
 export default function CalendarGrid() {
   const planner = usePlanner();
-  const habits  = useHabit();
+  const habits = useHabit();
   const [isTaskPanelOpen, setIsTaskPanelOpen] = useState(true);
   const [panelMode, setPanelMode] = useState<PanelMode>("view");
+
+  const selectedHabits = useMemo(
+    () => getHabitsForDate(habits.habits, planner.selectedDateKey),
+    [habits.habits, planner.selectedDateKey],
+  );
 
   const handleSelectDate = (dateKey: string) => {
     planner.selectDate(dateKey);
@@ -83,7 +89,7 @@ export default function CalendarGrid() {
             isCreateMode={panelMode === "create"}
             selectedDate={planner.selectedDate}
             selectedDateParts={planner.selectedDateParts}
-            habits={habits.selectedHabit}
+            habits={selectedHabits}
             tasks={planner.selectedTasks}
             onAddTask={handleAddTask}
             onToggleTask={planner.toggleTaskStatus}

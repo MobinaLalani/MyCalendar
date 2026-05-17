@@ -20,6 +20,7 @@ export default function CalendarMonthGrid({
   onSelectDate,
   onQuickAdd,
 }: CalendarMonthGridProps) {
+
   return (
     <div className="mt-6">
       <div className="overflow-x-auto pb-2">
