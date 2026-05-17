@@ -2,7 +2,7 @@ import type {
   CalendarDay,
   CalendarMonth,
   PersianDateParts,
-} from "../types/calendar.types";
+} from "../features/calendar/types/calendar.types";
 
 const persianDateFormatter = new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
   year: "numeric",

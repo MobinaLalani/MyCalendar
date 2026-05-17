@@ -34,7 +34,7 @@ export default function HabitFrequency() {
       value: 6,
     },
   ];
- console.log("values", values);
+
   return (
     <AutoComplete
       onChange={handleChange}

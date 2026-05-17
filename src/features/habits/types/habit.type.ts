@@ -5,4 +5,5 @@ export type HabitType = {
   HabitFrequency: number;
   HabitStartDate: string;
   createdAt: string;
+  completed?: boolean; // ✅ اضافه کن اگر لازم داری
 };

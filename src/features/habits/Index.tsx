@@ -86,7 +86,7 @@ const { saveHabit, resetForm, data ,setField } = useFormStore();
     values: FormValuesType,
     helpers: FormikHelpers<FormValuesType>,
   ) => {
-    console.log("Final Submit:", values);
+
     saveHabit(); // عادت را ذخیره کن
     resetForm(); // فرم را ریست کن
     setStep(1);

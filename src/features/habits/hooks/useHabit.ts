@@ -1,14 +1,43 @@
-import { useState } from "react";
-import { loadHabit } from "../services/habit.storage";
-import { HabitType } from "../types/habit.type";
+"use client";
 
-function useHabit() {
-  const [habits, setHabits] = useState<HabitType[]>(loadHabit());
+  import { useEffect, useMemo, useState } from "react";
+  import { loadHabit } from "../services/habit.storage";
+  import {
+    addDays,
+    buildCalendarMonth,
+    getNextPersianMonth,
+    getPersianDateParts,
+    getPreviousPersianMonth,
+    parseDateKey,
+    toDateKey,
+  } from "../../../utils/jalali";
+  import { HabitType } from "../types/habit.type";
+  import { getHabitsForDate } from "../utils/habits";
 
-  return {
-    habits,
-    setHabits,
-  };
-}
+  function useHabit() {
+      const today = useMemo(() => new Date(), []);
+      const todayKey = useMemo(() => toDateKey(today), [today]);
+      const [selectedDateKey, setSelectedDateKey] = useState(todayKey);
+      const [habits, setHabits] = useState<HabitType[]>(loadHabit());  
+      const [visibleMonthAnchor, setVisibleMonthAnchor] = useState(today);
 
-export default useHabit;
+      const goToToday = () => {
+        setVisibleMonthAnchor(today);
+        setSelectedDateKey(todayKey);
+      };
+      
+      const selectedHabit = useMemo(
+        () => getHabitsForDate(habits, selectedDateKey),
+        [selectedDateKey, habits],
+      );
+      
+    return {
+      habits,
+      setHabits,
+      selectedHabit,
+      selectDate: setSelectedDateKey,
+      goToToday,
+    };
+  }
+
+  export default useHabit;

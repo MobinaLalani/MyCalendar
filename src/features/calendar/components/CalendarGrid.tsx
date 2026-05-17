@@ -11,8 +11,7 @@ type PanelMode = "view" | "create";
 
 export default function CalendarGrid() {
   const planner = usePlanner();
-const { habits } = useHabit();
-  console.log("habitsInCalender", habits);
+  const habits  = useHabit();
   const [isTaskPanelOpen, setIsTaskPanelOpen] = useState(true);
   const [panelMode, setPanelMode] = useState<PanelMode>("view");
 
@@ -70,7 +69,7 @@ const { habits } = useHabit();
           <div className="mt-4 flex-1">
             <CalendarMonthGrid
               month={planner.calendarMonth}
-              habits ={habits}
+              habits={habits.habits}
               tasks={planner.tasks}
               onSelectDate={handleSelectDate}
               onQuickAdd={handleQuickAdd}
@@ -84,6 +83,7 @@ const { habits } = useHabit();
             isCreateMode={panelMode === "create"}
             selectedDate={planner.selectedDate}
             selectedDateParts={planner.selectedDateParts}
+            habits={habits.selectedHabit}
             tasks={planner.selectedTasks}
             onAddTask={handleAddTask}
             onToggleTask={planner.toggleTaskStatus}

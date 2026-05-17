@@ -1,16 +1,20 @@
 import { AnimatePresence, motion } from "framer-motion";
 import type { PersianDateParts, PlannerTask } from "../types/calendar.types";
+import TaskListItem from "./TaskListItem";
+import HabitListItem from "./HabitListItem";
 import Tooltip from "@/src/components/ui/Tooltip";
-import { getRelativeLabel } from "../utils/jalali";
-import PlusIcon from '../../..//components/icons/addIcon.svg';
+import { getRelativeLabel } from "../../../utils/jalali";
+import PlusIcon from "../../..//components/icons/addIcon.svg";
 import { formatPersianNumber } from "../utils/tasks";
 import TaskForm from "./TaskForm";
+import { HabitType } from "../../habits/types/habit.type";
 
 type TaskListProps = {
   isOpen: boolean;
   isCreateMode: boolean;
   selectedDate: Date;
   selectedDateParts: PersianDateParts;
+  habits:HabitType[];
   tasks: PlannerTask[];
   onAddTask: (input: {
     title: string;
@@ -29,6 +33,7 @@ export default function TaskList({
   isCreateMode,
   selectedDate,
   selectedDateParts,
+  habits,
   tasks,
   onAddTask,
   onToggleTask,
@@ -37,6 +42,7 @@ export default function TaskList({
   onStartCreate,
   onCancelCreate,
 }: TaskListProps) {
+  
   return (
     <AnimatePresence initial={false}>
       {isOpen ? (
@@ -88,10 +94,7 @@ export default function TaskList({
                 </motion.div>
               ) : null}
             </AnimatePresence>
-
-            <section className="rounded-3xl border border-black bg-[#cfc8ba] p-4"> 
-
-              
+            <section className="rounded-3xl border border-black bg-[#cfc8ba] p-4">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-2">
                   <h3 className="text-base font-semibold text-black">
@@ -133,7 +136,14 @@ export default function TaskList({
               </div>
             </section>
             <section className="rounded-3xl border border-black bg-[#cfc8ba] p-4">
-              dgdcxfgzsdfdgv
+              {habits.map((habit) => (
+                <HabitListItem
+                  key={1}
+                  habit={habit}
+                  onToggleTask={onToggleTask}
+                  onDeleteTask={onDeleteTask}
+                />
+              ))}
             </section>
           </div>
         </motion.aside>
@@ -142,53 +152,3 @@ export default function TaskList({
   );
 }
 
-type TaskListItemProps = {
-  task: PlannerTask;
-  onToggleTask: (taskId: string) => void;
-  onDeleteTask: (taskId: string) => void;
-};
-
-function TaskListItem({ task, onToggleTask, onDeleteTask }: TaskListItemProps) {
-  return (
-    <div className="rounded-2xl border border-black bg-white p-4">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-        <div className="min-w-0">
-          <div
-            className={`text-sm font-semibold ${
-              task.completed ? "text-emerald-300 line-through" : "text-black"
-            }`}
-          >
-            {task.title}
-          </div>
-          <div className="mt-1 text-xs text-black">{task.time}</div>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => onToggleTask(task.id)}
-            className={`rounded-xl px-3 py-2 text-xs transition ${
-              task.completed
-                ? "bg-amber-500/15 text-black hover:bg-amber-500/25"
-                : "bg-emerald-500/15 text-black hover:bg-emerald-500/25"
-
-            }`}
-          >
-            {task.completed ? "ناتمام" : "انجام شد"}
-          </button>
-          <button
-            type="button"
-            onClick={() => onDeleteTask(task.id)}
-            className="rounded-xl bg-rose-500/15 px-3 py-2 text-xs text-black transition hover:bg-rose-500/25"
-          >
-            حذف
-          </button>
-        </div>
-      </div>
-
-      {task.description ? (
-        <p className="mt-3 text-sm leading-7 text-black">{task.description}</p>
-      ) : null}
-    </div>
-  );
-}
