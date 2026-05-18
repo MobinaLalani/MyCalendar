@@ -7,8 +7,8 @@ interface HourRowProps {
 const HourRow: React.FC<HourRowProps> = ({ hour }) => {
   return (
     <div
-      className="relative h-18 border-b border-gray-200"
-      style={{ minHeight: "72px" }}
+      className="relative h-9 border-b border-gray-200"
+      style={{ minHeight: "30px" }}
     >
       <span className="absolute -left-12 top-1 text-gray-400 text-sm">
         {hour}
