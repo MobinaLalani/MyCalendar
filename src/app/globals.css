@@ -23,7 +23,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
   /* 🎯 primary */
   --primary: #1c1c1c;
-  --primary-foreground: #ffffff;
+  --primary-foreground: #1c1c1c;
 
   /* ✨ accent (زرد) */
   --accent: #f4d35e;
