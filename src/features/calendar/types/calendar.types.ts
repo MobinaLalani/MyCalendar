@@ -7,6 +7,7 @@ export type PlannerTask = {
   description: string;
   completed: boolean;
   createdAt: string;
+  color:string;
 };
 
 
@@ -16,6 +17,7 @@ export type PlannerTaskInput = {
   startTime: string;
   endTime: string;
   description: string;
+  color:string;
 };
 export type PersianDateParts = {
   year: number;

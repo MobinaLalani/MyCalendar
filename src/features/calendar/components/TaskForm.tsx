@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { PlannerTaskInput } from "../types/calendar.types";
-
+import TaskColorPicker from "@/src/components/ui/colorPicker/TaskColorPicker";
 import { Input } from "@/src/components/ui/form/Input";
 import { FormField } from "@/src/components/ui/form/FormField";
 import { Textarea } from "@/src/components/ui/form/Textarea";
@@ -19,6 +19,7 @@ const initialFormState: PlannerTaskInput = {
   startTime: "",
   endTime: "",
   description: "",
+  color: "#60A5FA",
 };
 
 export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
@@ -89,7 +90,17 @@ export default function TaskForm({ onSubmit, onCancel }: TaskFormProps) {
           onChange={handleChange("description")}
         />
       </FormField>
-
+      <FormField label="رنگ برنامه" htmlFor="task-color">
+        <TaskColorPicker
+          value={formState.color}
+          onChange={(color) =>
+            setFormState((currentState) => ({
+              ...currentState,
+              color,
+            }))
+          }
+        />
+      </FormField>
       <div className="flex flex-col gap-2 sm:flex-row">
         <Button type="submit" className="flex-1 text-slate-950">
           ثبت برنامه

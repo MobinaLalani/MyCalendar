@@ -75,6 +75,7 @@ export function usePlanner() {
     const description = taskInput.description.trim();
     const startTime = taskInput.startTime;
     const endTime = taskInput.endTime;
+    const color = taskInput.color;
 
 
     if (!title || !taskInput.startTime || !taskInput.endTime) {
@@ -90,6 +91,7 @@ export function usePlanner() {
       description,
       completed: false,
       createdAt: new Date().toISOString(),
+      color: color,
     };
 
     setTasks((currentTasks) => [...currentTasks, newTask]);

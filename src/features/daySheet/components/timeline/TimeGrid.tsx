@@ -2,6 +2,7 @@
 import React from "react";
 import Task from "./Task";
 import HourRow from "./HourRow";
+import { usePlanner } from "@/src/features/calendar/hooks/usePlanner";
 
 interface TimeGridProps {
   children?: React.ReactNode;
@@ -95,7 +96,8 @@ const TimeGrid: React.FC<TimeGridProps> = ({
   startHour = 0,
 }) => {
   const hours = generateHours(startHour, startHour + totalHoursToShow);
-
+  const planner = usePlanner();
+  console.log('planner',planner.tasks)
   const totalGridHeight = totalHoursToShow * hourHeightPx;
 
   const pixelsPerMinute = hourHeightPx / 60;
@@ -138,7 +140,7 @@ const TimeGrid: React.FC<TimeGridProps> = ({
     },
   ];
 
-  const positionedTasks = calculateTaskPositions(tasks);
+  const positionedTasks = calculateTaskPositions(planner.tasks);
 
   return (
     <div
