@@ -15,11 +15,12 @@ type TaskListProps = {
   isDetailsOpen: boolean;
   selectedDate: Date;
   selectedDateParts: PersianDateParts;
-  habits:HabitType[];
+  habits: HabitType[];
   tasks: PlannerTask[];
   onAddTask: (input: {
     title: string;
-    time: string;
+    startTime: string;
+    endTime: string;
     description: string;
   }) => boolean;
   onToggleTask: (taskId: string) => void;

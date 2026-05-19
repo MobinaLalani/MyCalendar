@@ -2,7 +2,8 @@ export type PlannerTask = {
   id: string;
   dateKey: string;
   title: string;
-  time: string;
+  startTime: string;
+  endTime: string;
   description: string;
   completed: boolean;
   createdAt: string;
@@ -12,10 +13,10 @@ export type PlannerTask = {
 
 export type PlannerTaskInput = {
   title: string;
-  time: string;
+  startTime: string;
+  endTime: string;
   description: string;
 };
-
 export type PersianDateParts = {
   year: number;
   month: number;

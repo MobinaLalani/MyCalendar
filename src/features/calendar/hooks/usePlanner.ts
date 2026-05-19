@@ -73,8 +73,11 @@ export function usePlanner() {
   const addTask = (taskInput: PlannerTaskInput) => {
     const title = taskInput.title.trim();
     const description = taskInput.description.trim();
+    const startTime = taskInput.startTime;
+    const endTime = taskInput.endTime;
 
-    if (!title || !taskInput.time) {
+
+    if (!title || !taskInput.startTime || !taskInput.endTime) {
       return false;
     }
 
@@ -82,7 +85,8 @@ export function usePlanner() {
       id: crypto.randomUUID(),
       dateKey: selectedDateKey,
       title,
-      time: taskInput.time,
+      startTime: startTime,
+      endTime: taskInput.endTime,
       description,
       completed: false,
       createdAt: new Date().toISOString(),
