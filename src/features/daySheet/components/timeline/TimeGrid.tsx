@@ -138,7 +138,8 @@ const TimeGrid: React.FC<TimeGridProps> = ({
       endTime: "11:00",
       color: "#3498db",
     },
-  ];
+  ];  
+  
 
   const positionedTasks = calculateTaskPositions(planner.tasks);
 
