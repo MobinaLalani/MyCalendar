@@ -7,7 +7,7 @@ import TimeGrid from "../timeline/TimeGrid";
 const DaySheetLayout: React.FC = () => {
 
   return (
-    <div className="flex max-w-full h-[95vh] bg-red-300 mx-16">
+    <div className="flex max-w-full h-[95vh]  mx-16">
       <div className="flex-1 relative ">
         <TimeGrid>
         

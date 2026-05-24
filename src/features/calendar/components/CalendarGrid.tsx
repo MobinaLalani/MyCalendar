@@ -64,6 +64,7 @@ export default function CalendarGrid() {
     startTime: string;
     endTime: string;
     description: string;
+    color:string
   }) => {
     const isAdded = planner.addTask(input);
 

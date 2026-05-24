@@ -22,6 +22,7 @@ type TaskListProps = {
     startTime: string;
     endTime: string;
     description: string;
+    color:string;
   }) => boolean;
   onToggleTask: (taskId: string) => void;
   onDeleteTask: (taskId: string) => void;
