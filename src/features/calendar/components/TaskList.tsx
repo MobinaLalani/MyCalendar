@@ -114,14 +114,14 @@ export default function TaskList({
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
-                      onClick={onToggleDetails}
+                      // onClick={onToggleDetails}
                       className={`rounded-2xl border px-3 py-2 text-xs font-medium transition ${
                         isDetailsOpen
                           ? "border-violet-500/50 bg-violet-500/15 text-black"
                           : "border-black/20 bg-white/60 text-black hover:bg-white"
                       }`}
                     >
-                      {isDetailsOpen ? "بستن جزئیات" : "نمایش جزئیات"}
+                      {isDetailsOpen ? "بستن جزئیات" : " جزئیات"}
                     </button>
 
                     <Tooltip content="افزودن تسک جدید" position="top">
