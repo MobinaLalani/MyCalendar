@@ -12,7 +12,6 @@ import { HabitType } from "../../habits/types/habit.type";
 type TaskListProps = {
   isOpen: boolean;
   isCreateMode: boolean;
-  isDetailsOpen: boolean;
   selectedDate: Date;
   selectedDateParts: PersianDateParts;
   habits: HabitType[];
@@ -29,13 +28,12 @@ type TaskListProps = {
   onClose: () => void;
   onStartCreate: () => void;
   onCancelCreate: () => void;
-  onToggleDetails: () => void;
+  onViewDaySheet: () => void;
 };
 
 export default function TaskList({
   isOpen,
   isCreateMode,
-  isDetailsOpen,
   selectedDate,
   selectedDateParts,
   habits,
@@ -46,7 +44,7 @@ export default function TaskList({
   onClose,
   onStartCreate,
   onCancelCreate,
-  onToggleDetails,
+  onViewDaySheet,
 }: TaskListProps) {
   return (
     <AnimatePresence initial={false}>
@@ -112,17 +110,15 @@ export default function TaskList({
 
                 {!isCreateMode ? (
                   <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      // onClick={onToggleDetails}
-                      className={`rounded-2xl border px-3 py-2 text-xs font-medium transition ${
-                        isDetailsOpen
-                          ? "border-violet-500/50 bg-violet-500/15 text-black"
-                          : "border-black/20 bg-white/60 text-black hover:bg-white"
-                      }`}
-                    >
-                      {isDetailsOpen ? "بستن جزئیات" : " جزئیات"}
-                    </button>
+                    {tasks.length > 0 ? (
+                      <button
+                        type="button"
+                        onClick={onViewDaySheet}
+                        className="rounded-2xl border border-black/20 bg-white/60 px-3 py-2 text-xs font-medium text-black transition hover:bg-white"
+                      >
+                        نمایش جزئیات روز
+                      </button>
+                    ) : null}
 
                     <Tooltip content="افزودن تسک جدید" position="top">
                       <button

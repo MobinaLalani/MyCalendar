@@ -28,7 +28,15 @@ const Task: React.FC<TaskProps> = ({
   const { title, startTime, endTime, color } = task;
 
   const timeToMinutes = (timeStr: string) => {
+    if (!timeStr || !timeStr.includes(":")) {
+      return 0;
+    }
+
     const [hours, minutes] = timeStr.split(":").map(Number);
+
+    if (Number.isNaN(hours) || Number.isNaN(minutes)) {
+      return 0;
+    }
 
     return hours * 60 + minutes;
   };

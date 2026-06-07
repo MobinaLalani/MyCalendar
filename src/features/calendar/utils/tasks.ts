@@ -4,21 +4,28 @@ export function formatPersianNumber(value: number) {
   return value.toLocaleString("fa-IR");
 }
 
+function getTaskStartTime(task: PlannerTask) {
+  return task.startTime ?? "";
+}
+
 export function sortPlannerTasks(tasks: PlannerTask[]) {
   return [...tasks].sort((left, right) => {
-    if (left.time === right.time) {
+    const leftStartTime = getTaskStartTime(left);
+    const rightStartTime = getTaskStartTime(right);
+
+    if (leftStartTime === rightStartTime) {
       return right.createdAt.localeCompare(left.createdAt);
     }
 
-    if (!left.time) {
+    if (!leftStartTime) {
       return 1;
     }
 
-    if (!right.time) {
+    if (!rightStartTime) {
       return -1;
     }
 
-    return left.time.localeCompare(right.time);
+    return leftStartTime.localeCompare(rightStartTime);
   });
 }
 

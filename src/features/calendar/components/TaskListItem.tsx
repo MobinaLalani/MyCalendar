@@ -18,7 +18,9 @@ type TaskListItemProps = {
           >
             {task.title}
           </div>
-          <div className="mt-1 text-xs text-black">{task.time}</div>
+          <div className="mt-1 text-xs text-black">
+            {task.startTime} - {task.endTime}
+          </div>
         </div>
 
         <div className="flex flex-wrap gap-2">

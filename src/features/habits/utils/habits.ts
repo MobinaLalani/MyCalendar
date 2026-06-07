@@ -14,11 +14,7 @@ export function getHabitsForDate(habits: HabitType[], dateKey: string) {
   return sortHabits(
     habits.filter((habit) => {
       const habitDate = new Date(habit.HabitStartDate);
-     
-      // گرفتن فقط بخش YYYY-MM-DD بدون تأثیر timezone
       const habitDateKey = habitDate.toISOString().slice(0, 10);
-       console.log("habitDateKey", habitDateKey);
-           console.log("dateKey", dateKey);
       return habitDateKey === dateKey;
     }),
   );

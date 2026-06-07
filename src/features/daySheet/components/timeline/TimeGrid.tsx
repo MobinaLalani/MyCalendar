@@ -2,10 +2,10 @@
 import React from "react";
 import Task from "./Task";
 import HourRow from "./HourRow";
-import { usePlanner } from "@/src/features/calendar/hooks/usePlanner";
+import type { PlannerTask } from "@/src/features/calendar/types/calendar.types";
 
 interface TimeGridProps {
-  children?: React.ReactNode;
+  tasks: PlannerTask[];
   totalHoursToShow?: number;
   hourHeightPx?: number;
   startHour?: number;
@@ -35,8 +35,43 @@ const generateHours = (start = 8, end = 20): string[] => {
 };
 
 const timeToMinutes = (time: string): number => {
+  if (!time || !time.includes(":")) {
+    return 0;
+  }
+
   const [hours, minutes] = time.split(":").map(Number);
+
+  if (Number.isNaN(hours) || Number.isNaN(minutes)) {
+    return 0;
+  }
+
   return hours * 60 + minutes;
+};
+
+const addMinutesToTime = (time: string, minutesToAdd: number): string => {
+  const totalMinutes = timeToMinutes(time) + minutesToAdd;
+  const hours = Math.floor(totalMinutes / 60)
+    .toString()
+    .padStart(2, "0");
+  const minutes = (totalMinutes % 60).toString().padStart(2, "0");
+
+  return `${hours}:${minutes}`;
+};
+
+const isValidPlannerTaskTime = (
+  task: PlannerTask,
+): task is PlannerTask & { startTime: string } => {
+  return typeof task.startTime === "string" && task.startTime.includes(":");
+};
+
+const mapPlannerTaskToTimelineTask = (task: PlannerTask): TaskData => {
+  return {
+    id: task.id,
+    title: task.title,
+    startTime: task.startTime,
+    endTime: task.endTime || addMinutesToTime(task.startTime, 60),
+    color: task.color || (task.completed ? "#10b981" : "#3498db"),
+  };
 };
 
 const isOverlapping = (a: TaskData, b: TaskData) => {
@@ -91,57 +126,20 @@ const calculateTaskPositions = (tasks: TaskData[]): PositionedTask[] => {
 };
 
 const TimeGrid: React.FC<TimeGridProps> = ({
+  tasks,
   totalHoursToShow = 24,
   hourHeightPx = 40,
   startHour = 0,
 }) => {
   const hours = generateHours(startHour, startHour + totalHoursToShow);
-  const planner = usePlanner();
-  console.log('planner',planner.tasks)
   const totalGridHeight = totalHoursToShow * hourHeightPx;
 
   const pixelsPerMinute = hourHeightPx / 60;
+  const timelineTasks = tasks
+    .filter(isValidPlannerTaskTime)
+    .map(mapPlannerTaskToTimelineTask);
 
-  const tasks: TaskData[] = [
-    {
-      id: "t1",
-      title: "جلسه با تیم",
-      startTime: "09:00",
-      endTime: "10:30",
-      color: "#f39c12",
-    },
-    {
-      id: "t2",
-      title: "توسعه فیچر جدید",
-      startTime: "10:00",
-      endTime: "12:00",
-      color: "#2ecc71",
-    },
-    {
-      id: "t3",
-      title: "بررسی کد",
-      startTime: "10:15",
-      endTime: "11:30",
-      color: "#9b59b6",
-    },
-    {
-      id: "t4",
-      title: "ناهار",
-      startTime: "13:00",
-      endTime: "14:00",
-      color: "#e74c3c",
-    },
-    {
-      id: "t5",
-      title: "تسک تست",
-      startTime: "10:20",
-      endTime: "11:00",
-      color: "#3498db",
-    },
-  ];  
-  
-
-  const positionedTasks = calculateTaskPositions(planner.tasks);
+  const positionedTasks = calculateTaskPositions(timelineTasks);
 
   return (
     <div
