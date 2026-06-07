@@ -29,12 +29,12 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({
           </p>
         </div>
 
-        <div className="relative overflow-x-auto">
+        <div className="relative w-[80vh] ">
           <TimeGrid tasks={selectedTasks} />
         </div>
       </div>
 
-      <aside className="w-full space-y-4 lg:w-[24rem]">
+      <aside className="w-full space-y-4 lg:w-[24rem] text-black lg:mt-20">
         <div className="rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur">
           <DaySummary items={items} />
           <ProductivityScore items={items} />
