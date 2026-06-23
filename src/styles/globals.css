@@ -31,13 +31,13 @@
   /* 🔵 secondary (آبی) */
 
   --secondary-foreground: #1c1c1c;
-
+  --lightBlue:#bfcfcd;
   /* ⚠️ states */
   --success: #22c55e;
   --warning: #facc15;
   --error: #ef4444;
   --info: #0ea5e9;
-
+  --gray:#d9dcd6;
   /* 🔲 ui */
   --border: #e5ded3;
   --ring: #1c1c1c;

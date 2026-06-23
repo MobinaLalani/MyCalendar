@@ -11,7 +11,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   --background: #f5efe6;
   --surface: #F7D66C;
   --surface-muted: #F7B7DA;
-
+ 
   /* 🖤 sidebar */
   --sidebar: #0f0f0f;
   --sidebar-foreground: #ffffff;
@@ -38,11 +38,12 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   --warning: #facc15;
   --error: #ef4444;
   --info: #0ea5e9;
-
+  --lightgray:#F7D66C;
   /* 🔲 ui */
   --border: #e5ded3;
   --ring: #1c1c1c;
 }
+
 
 * {
   box-sizing: border-box;
@@ -50,6 +51,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
 html {
   background: var(--background);
+  
 }
 
 body {

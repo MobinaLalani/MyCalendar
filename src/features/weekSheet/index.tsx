@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import ChevronDownIcon from "../../components/icons/arrow-down.svg";
 import { useRouter } from "next/navigation";
 import { loadPlannerTasks } from "../calendar/services/calendar.storage";
 import {
@@ -46,7 +47,9 @@ export default function WeeklyView() {
       {/* Header */}
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-(--text-foreground)">نمای هفتگی</h1>
+          <h1 className="text-xl font-bold text-(--text-foreground)">
+            نمای هفتگی
+          </h1>
           <p className="mt-1 text-sm text-slate-400">{weekLabel}</p>
         </div>
         <div className="flex items-center gap-2">
@@ -54,7 +57,7 @@ export default function WeeklyView() {
             onClick={goToPrevWeek}
             className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-(--text-foreground) transition hover:bg-white/10"
           >
-            ›
+            <ChevronDownIcon className="rotate-270" />
           </button>
           <button
             onClick={goToThisWeek}
@@ -66,7 +69,7 @@ export default function WeeklyView() {
             onClick={goToNextWeek}
             className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-(--text-foreground) transition hover:bg-white/10"
           >
-            ‹
+            <ChevronDownIcon className="rotate-90" />
           </button>
         </div>
       </div>
@@ -84,15 +87,15 @@ export default function WeeklyView() {
             <div
               key={dateKey}
               onClick={() => router.push(`/DaySheet?date=${dateKey}`)}
-              className={`flex cursor-pointer flex-col rounded-3xl border p-3 transition-all hover:scale-[1.01] hover:shadow-lg ${
-                isToday
-                  ? "border-amber-400/50 bg-amber-400/5"
-                  : "border-white/10 bg-white/5 hover:bg-white/10"
+              className={`flex cursor-pointer flex-col bg-(--gray) rounded-3xl border p-3 transition-all hover:scale-[1.01] hover:shadow-lg ${
+                isToday ? "border-black  border-3 " : "border-white/10 "
               }`}
             >
               {/* Day header */}
               <div className="mb-3 text-center">
-                <div className={`text-[11px] font-medium ${isToday ? "text-amber-400" : "text-slate-400"}`}>
+                <div
+                  className={`text-[11px] font-medium ${isToday ? "text-amber-400" : "text-slate-400"}`}
+                >
                   {WEEKDAY_LABELS[i]}
                 </div>
                 <div
@@ -120,14 +123,18 @@ export default function WeeklyView() {
                     {task.priority && task.priority !== "medium" && (
                       <span
                         className="mr-1 inline-block h-1.5 w-1.5 rounded-full"
-                        style={{ backgroundColor: PRIORITY_COLOR[task.priority] }}
+                        style={{
+                          backgroundColor: PRIORITY_COLOR[task.priority],
+                        }}
                       />
                     )}
                     {task.title}
                   </div>
                 ))}
                 {dayTasks.length > 5 && (
-                  <div className="px-1 text-[10px] text-slate-500">+{dayTasks.length - 5} بیشتر</div>
+                  <div className="px-1 text-[10px] text-slate-500">
+                    +{dayTasks.length - 5} بیشتر
+                  </div>
                 )}
               </div>
 

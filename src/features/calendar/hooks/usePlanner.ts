@@ -6,6 +6,7 @@ import {
   loadPlannerTasks,
   savePlannerTasks,
 } from "../services/calendar.storage";
+import { seedMockData } from "../../../utils/mockData";
 import type { PlannerTask, PlannerTaskInput } from "../types/calendar.types";
 import {
   addDays,
@@ -24,7 +25,10 @@ export function usePlanner() {
 
   const [visibleMonthAnchor, setVisibleMonthAnchor] = useState(today);
   const [selectedDateKey, setSelectedDateKey] = useState(todayKey);
-  const [tasks, setTasks] = useState<PlannerTask[]>(loadPlannerTasks);
+  const [tasks, setTasks] = useState<PlannerTask[]>(() => {
+    seedMockData();
+    return loadPlannerTasks();
+  });
 
   useEffect(() => {
     savePlannerTasks(tasks);
@@ -157,6 +161,8 @@ export function usePlanner() {
     setVisibleMonthAnchor((currentMonth) => getNextPersianMonth(currentMonth));
   };
 
+  const reloadTasks = () => setTasks(loadPlannerTasks());
+
   return {
     tasks,
     calendarMonth,
@@ -176,5 +182,6 @@ export function usePlanner() {
     goToToday,
     goToPreviousMonth,
     goToNextMonth,
+    reloadTasks,
   };
 }

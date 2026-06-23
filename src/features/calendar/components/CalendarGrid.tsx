@@ -15,6 +15,7 @@ export default function CalendarGrid() {
   const router = useRouter();
   const planner = usePlanner();
   const habits = useHabit();
+
   const [isTaskPanelOpen, setIsTaskPanelOpen] = useState(true);
   const [panelMode, setPanelMode] = useState<PanelMode>("view");
 
