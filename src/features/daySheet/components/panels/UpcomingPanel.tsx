@@ -17,18 +17,30 @@ const UpcomingPanel: React.FC<UpcomingPanelProps> = ({ items }) => {
     .slice(0, 5);
 
   return (
-    <div className="p-3 border rounded-md bg-white shadow-sm mt-3">
-      <h3 className="font-semibold mb-2">Upcoming</h3>
-      {upcoming.map((i) => (
-        <div key={i.id} className="mb-1 text-sm truncate">
-          {i.title} -{" "}
-          {new Date(i.startDate).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
+    <div>
+      <h3 className="text-sm font-semibold text-(--text-foreground) mb-3">آیتم‌های بعدی</h3>
+      {upcoming.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-white/10 px-4 py-4 text-sm text-slate-400 text-center">
+          آیتمی در راه نیست
         </div>
-      ))}
-      {upcoming.length === 0 && <p>No upcoming items</p>}
+      ) : (
+        <div className="space-y-2">
+          {upcoming.map((i) => (
+            <div
+              key={i.id}
+              className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2"
+            >
+              <span className="text-sm text-(--text-foreground) truncate">{i.title}</span>
+              <span className="text-xs text-slate-400 shrink-0 ml-2">
+                {new Date(i.startDate).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

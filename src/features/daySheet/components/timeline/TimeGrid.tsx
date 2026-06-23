@@ -143,7 +143,7 @@ const TimeGrid: React.FC<TimeGridProps> = ({
 
   return (
     <div
-      className="relative w-full border-l border-gray-200 bg-white"
+      className="relative w-full border-l border-white/10 bg-transparent"
       style={{
         height: `${totalGridHeight}px`,
       }}

@@ -10,16 +10,25 @@ const ProductivityScore: React.FC<ProductivityScoreProps> = ({ items }) => {
   const total = items.length;
   const score = total === 0 ? 0 : Math.round((completed / total) * 100);
 
+  const barColor =
+    score >= 80
+      ? "from-emerald-500 to-teal-400"
+      : score >= 50
+        ? "from-amber-500 to-yellow-400"
+        : "from-red-500 to-rose-400";
+
   return (
-    <div className="p-3 border rounded-md bg-white shadow-sm mt-3">
-      <h3 className="font-semibold mb-2">Productivity Score</h3>
-      <div className="w-full bg-gray-200 h-4 rounded-full">
+    <div className="border-b border-white/10 pb-4 mb-4">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-sm font-semibold text-(--text-foreground)">امتیاز بهره‌وری</h3>
+        <span className="text-lg font-bold text-(--text-foreground)">{score}%</span>
+      </div>
+      <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
         <div
-          className="bg-green-500 h-4 rounded-full"
+          className={`h-2 rounded-full bg-linear-to-r transition-all duration-500 ${barColor}`}
           style={{ width: `${score}%` }}
         />
       </div>
-      <p className="text-right text-xs mt-1">{score}%</p>
     </div>
   );
 };

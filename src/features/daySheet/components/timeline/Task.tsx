@@ -55,21 +55,23 @@ const Task: React.FC<TaskProps> = ({
 
   return (
     <div
-      className="absolute px-2 py-1 text-white text-xs rounded-md overflow-hidden shadow-md"
+      className="absolute px-2 py-1.5 text-white text-xs rounded-xl overflow-hidden shadow-lg"
       style={{
         top: `${topPosition}px`,
         left: `${left}%`,
-        width: `calc(${width}% - 4px)`,
+        width: `calc(${width}% - 6px)`,
         height: `${taskHeight}px`,
-        backgroundColor: color || "#3498db",
+        backgroundColor: `${color || "#3498db"}cc`,
+        borderLeft: `3px solid ${color || "#3498db"}`,
         zIndex: 10,
       }}
     >
-      <div className="font-medium truncate">{title}</div>
-
-      <div className="opacity-80 text-[10px]">
-        {startTime} - {endTime}
-      </div>
+      <div className="font-semibold truncate leading-tight">{title}</div>
+      {taskHeight > 24 && (
+        <div className="opacity-70 text-[10px] mt-0.5">
+          {startTime} – {endTime}
+        </div>
+      )}
     </div>
   );
 };
