@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import type { PersianDateParts, PlannerTask } from "../types/calendar.types";
+import type { PersianDateParts, PlannerTask, PlannerTaskInput } from "../types/calendar.types";
 import TaskListItem from "./TaskListItem";
 import HabitListItem from "./HabitListItem";
 import Tooltip from "@/src/components/ui/Tooltip";
@@ -16,15 +16,10 @@ type TaskListProps = {
   selectedDateParts: PersianDateParts;
   habits: HabitType[];
   tasks: PlannerTask[];
-  onAddTask: (input: {
-    title: string;
-    startTime: string;
-    endTime: string;
-    description: string;
-    color:string;
-  }) => boolean;
+  onAddTask: (input: PlannerTaskInput) => boolean;
   onToggleTask: (taskId: string) => void;
   onDeleteTask: (taskId: string) => void;
+  onDeleteGroup?: (repeatGroupId: string) => void;
   onClose: () => void;
   onStartCreate: () => void;
   onCancelCreate: () => void;
@@ -41,6 +36,7 @@ export default function TaskList({
   onAddTask,
   onToggleTask,
   onDeleteTask,
+  onDeleteGroup,
   onClose,
   onStartCreate,
   onCancelCreate,
@@ -146,6 +142,7 @@ export default function TaskList({
                     task={task}
                     onToggleTask={onToggleTask}
                     onDeleteTask={onDeleteTask}
+                    onDeleteGroup={onDeleteGroup}
                   />
                 ))}
               </div>

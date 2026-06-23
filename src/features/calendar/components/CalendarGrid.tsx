@@ -57,19 +57,9 @@ export default function CalendarGrid() {
     router.push(`/DaySheet?date=${planner.selectedDateKey}`);
   };
 
-  const handleAddTask = (input: {
-    title: string;
-    startTime: string;
-    endTime: string;
-    description: string;
-    color:string
-  }) => {
+  const handleAddTask = (input: Parameters<typeof planner.addTask>[0]) => {
     const isAdded = planner.addTask(input);
-
-    if (isAdded) {
-      handleClosePanel();
-    }
-
+    if (isAdded) handleClosePanel();
     return isAdded;
   };
 
@@ -95,7 +85,7 @@ export default function CalendarGrid() {
           </div>
         </div>
 
-        <div className="m-5 min-h-[22rem] xl:ml-6">
+        <div className="m-5 min-h-88 xl:ml-6">
           <TaskList
             isOpen={isTaskPanelOpen}
             isCreateMode={panelMode === "create"}
@@ -106,6 +96,7 @@ export default function CalendarGrid() {
             onAddTask={handleAddTask}
             onToggleTask={planner.toggleTaskStatus}
             onDeleteTask={planner.deleteTask}
+            onDeleteGroup={planner.deleteTaskGroup}
             onClose={handleClosePanel}
             onStartCreate={handleStartCreate}
             onCancelCreate={handleCancelCreate}

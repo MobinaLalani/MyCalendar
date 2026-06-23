@@ -1,3 +1,6 @@
+export type TaskPriority = 'high' | 'medium' | 'low';
+export type TaskRepeat = 'none' | 'daily' | 'weekly' | 'monthly';
+
 export type PlannerTask = {
   id: string;
   dateKey: string;
@@ -7,17 +10,20 @@ export type PlannerTask = {
   description: string;
   completed: boolean;
   createdAt: string;
-  color:string;
+  color: string;
+  priority?: TaskPriority;
+  repeat?: TaskRepeat;
+  repeatGroupId?: string;
 };
-
-
 
 export type PlannerTaskInput = {
   title: string;
   startTime: string;
   endTime: string;
   description: string;
-  color:string;
+  color: string;
+  priority?: TaskPriority;
+  repeat?: TaskRepeat;
 };
 export type PersianDateParts = {
   year: number;

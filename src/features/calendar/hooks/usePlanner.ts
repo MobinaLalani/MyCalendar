@@ -73,28 +73,52 @@ export function usePlanner() {
   const addTask = (taskInput: PlannerTaskInput) => {
     const title = taskInput.title.trim();
     const description = taskInput.description.trim();
-    const startTime = taskInput.startTime;
-    const endTime = taskInput.endTime;
-    const color = taskInput.color;
+    const { startTime, endTime, color, priority = 'medium', repeat = 'none' } = taskInput;
 
+    if (!title || !startTime || !endTime) return false;
 
-    if (!title || !taskInput.startTime || !taskInput.endTime) {
-      return false;
-    }
+    const repeatGroupId = repeat !== 'none' ? crypto.randomUUID() : undefined;
 
-    const newTask: PlannerTask = {
+    const buildTask = (dateKey: string): PlannerTask => ({
       id: crypto.randomUUID(),
-      dateKey: selectedDateKey,
+      dateKey,
       title,
-      startTime: startTime,
-      endTime: taskInput.endTime,
+      startTime,
+      endTime,
       description,
       completed: false,
       createdAt: new Date().toISOString(),
-      color: color,
-    };
+      color,
+      priority,
+      repeat,
+      repeatGroupId,
+    });
 
-    setTasks((currentTasks) => [...currentTasks, newTask]);
+    if (repeat === 'none') {
+      setTasks((prev) => [...prev, buildTask(selectedDateKey)]);
+      return true;
+    }
+
+    const tasksToAdd: PlannerTask[] = [];
+    const startDate = parseDateKey(selectedDateKey);
+
+    if (repeat === 'daily') {
+      for (let i = 0; i < 90; i++) {
+        tasksToAdd.push(buildTask(toDateKey(addDays(startDate, i))));
+      }
+    } else if (repeat === 'weekly') {
+      for (let i = 0; i < 12; i++) {
+        tasksToAdd.push(buildTask(toDateKey(addDays(startDate, i * 7))));
+      }
+    } else if (repeat === 'monthly') {
+      for (let m = 0; m < 12; m++) {
+        const d = new Date(startDate);
+        d.setMonth(d.getMonth() + m);
+        tasksToAdd.push(buildTask(toDateKey(d)));
+      }
+    }
+
+    setTasks((prev) => [...prev, ...tasksToAdd]);
     return true;
   };
 
@@ -109,6 +133,12 @@ export function usePlanner() {
   const deleteTask = (taskId: string) => {
     setTasks((currentTasks) =>
       currentTasks.filter((task) => task.id !== taskId),
+    );
+  };
+
+  const deleteTaskGroup = (repeatGroupId: string) => {
+    setTasks((currentTasks) =>
+      currentTasks.filter((task) => task.repeatGroupId !== repeatGroupId),
     );
   };
 
@@ -141,6 +171,7 @@ export function usePlanner() {
     selectDate: setSelectedDateKey,
     addTask,
     deleteTask,
+    deleteTaskGroup,
     toggleTaskStatus,
     goToToday,
     goToPreviousMonth,

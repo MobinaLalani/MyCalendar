@@ -167,6 +167,12 @@ export function buildCalendarMonth(
   };
 }
 
+export function getWeekDays(anchorDate: Date): Date[] {
+  const weekIndex = getWeekIndex(anchorDate);
+  const startOfWeek = addDays(anchorDate, -weekIndex);
+  return Array.from({ length: 7 }, (_, i) => addDays(startOfWeek, i));
+}
+
 export function getRelativeLabel(date: Date) {
   const dateKey = toDateKey(date);
   const today = new Date();

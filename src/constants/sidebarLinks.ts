@@ -1,8 +1,9 @@
 import {
   HomeIcon,
   CalendarIcon,
-  Settings2Icon,
   BarChart3Icon,
+  Settings2Icon,
+  CalendarDaysIcon,
 } from "lucide-react";
 
 export const SidebarLinks = [
@@ -13,10 +14,16 @@ export const SidebarLinks = [
     icon: HomeIcon,
   },
   {
-    href: "/calendar",
+    href: "/calender",
     label: "تقویم",
     description: "برنامه‌ریزی روزها",
     icon: CalendarIcon,
+  },
+  {
+    href: "/week",
+    label: "هفته",
+    description: "نمای هفتگی",
+    icon: CalendarDaysIcon,
   },
   {
     href: "/reports",

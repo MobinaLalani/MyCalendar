@@ -5,6 +5,7 @@ import type { FormValuesType } from "../types/habit.types";
 export type HabitItem = FormValuesType & {
   id: string;
   createdAt: string;
+  completedDates?: string[];
 };
 
 type FormStore = {
@@ -21,6 +22,7 @@ type FormStore = {
   resetForm: () => void;
   removeHabit: (id: string) => void;
   clearHabits: () => void;
+  toggleHabitDate: (id: string, dateKey: string) => void;
 };
 
 const initialData: FormValuesType = {
@@ -75,6 +77,20 @@ export const useFormStore = create<FormStore>()(
         })),
 
       clearHabits: () => set({ habits: [] }),
+
+      toggleHabitDate: (id, dateKey) =>
+        set((state) => ({
+          habits: state.habits.map((habit) =>
+            habit.id === id
+              ? {
+                  ...habit,
+                  completedDates: (habit.completedDates ?? []).includes(dateKey)
+                    ? (habit.completedDates ?? []).filter((d) => d !== dateKey)
+                    : [...(habit.completedDates ?? []), dateKey],
+                }
+              : habit,
+          ),
+        })),
     }),
     {
       name: "habit-storage",

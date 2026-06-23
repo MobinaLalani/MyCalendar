@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import MainLayout from "./mainLayout";
 import Sidebar from "./Sidebar";
+import SearchPalette from "../ui/SearchPalette";
+import { useKeyboardShortcuts } from "../../hooks/useKeyboardShortcuts";
 
 type AppShellProps = {
   children: React.ReactNode;
@@ -11,14 +13,19 @@ type AppShellProps = {
 
 export default function AppShell({ children }: AppShellProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  useKeyboardShortcuts({ onSearch: () => setIsSearchOpen(true) });
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-transparent">
       <Sidebar
         isOpen={isSidebarOpen}
-        onToggle={() => setIsSidebarOpen((current) => !current)}
+        onToggle={() => setIsSidebarOpen((c) => !c)}
         onClose={() => setIsSidebarOpen(false)}
       />
+
+      <SearchPalette isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
       <motion.main
         initial={false}
