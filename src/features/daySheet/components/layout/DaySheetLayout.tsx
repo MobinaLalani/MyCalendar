@@ -26,6 +26,7 @@ function calculateStreak(completedDates: string[]): number {
     }
   }
   return streak;
+  
 }
 
 const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
