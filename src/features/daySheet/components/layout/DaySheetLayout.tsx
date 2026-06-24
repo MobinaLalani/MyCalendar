@@ -100,6 +100,7 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
           <div className="border border-black  rounded-3xl px-5 py-4 bg-(--yellow) m-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 ">
+                
                 <div className="h-1.5 w-4 rounded-full bg-linear-to-r from-emerald-400 to-teal-400" />
                 <h2 className="text-sm font-semibold text-black">عادت‌های روزانه</h2>
               </div>
