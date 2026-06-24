@@ -54,14 +54,14 @@ export default function FocusTimer() {
 
   return (
     <div
-      className={`overflow-hidden rounded-2xl border border-white/8 bg-linear-to-b ${cfg.gradientFrom} to-white/2 shadow-xl backdrop-blur-xl`}
+      className={`overflow-hidden rounded-3xl  border border-black shadow-xl backdrop-blur-xl`}
     >
       {/* Header */}
       <div className="border-b border-white/8 px-5 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className={`h-1.5 w-4 rounded-full bg-linear-to-r ${cfg.accentClass}`} />
-            <h3 className="text-sm font-semibold text-white">تایمر تمرکز</h3>
+            <h3 className="text-sm font-semibold text-black">تایمر تمرکز</h3>
           </div>
           {completedPomodoros > 0 && (
             <div className="flex items-center gap-1.5 rounded-lg border border-amber-500/20 bg-amber-500/15 px-2.5 py-1">
@@ -110,7 +110,7 @@ export default function FocusTimer() {
               />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="font-mono text-2xl font-bold tracking-tight text-white">
+              <span className="font-mono text-2xl font-bold tracking-tight text-black">
                 {timeLabel}
               </span>
               <span className="mt-0.5 text-[11px] font-medium" style={{ color: cfg.color }}>
@@ -125,7 +125,7 @@ export default function FocusTimer() {
           {phase === "idle" && (
             <button
               onClick={start}
-              className="flex-1 rounded-xl bg-indigo-500 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all duration-200 hover:bg-indigo-400"
+              className="flex-1 rounded-xl bg-(--sidebar) py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all duration-200 hover:bg-indigo-400"
             >
               ▶ شروع تمرکز
             </button>

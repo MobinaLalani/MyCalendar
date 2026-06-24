@@ -45,14 +45,14 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
   }).length;
 
   return (
-    <div className="mx-4 flex min-h-[95vh] max-w-full flex-col gap-5 py-5 lg:mx-8">
+    <div className="mx-4 flex min-h-[95vh] max-w-full flex-col bg-(--background) gap-5 py-5 lg:mx-8">
       {/* Header */}
-      <div className="relative border-b border-white/8 bg-(--lightGray) px-6 py-5 rounded-4xl">
+      <div className="relative border-b border-black bg-(--lightGray) px-6 py-5 rounded-4xl">
         <div className="relative flex items-center justify-between">
           <div>
             <div className="mb-1 flex items-center gap-2">
               <div className="h-1.5 w-6 rounded-full bg-linear-to-r from-indigo-400 to-violet-400" />
-              <span className="text-xs font-medium tracking-widest text-indigo-300/80 uppercase">
+              <span className="text-xs font-medium tracking-widest text-white  uppercase">
                 برنامه روز
               </span>
             </div>
