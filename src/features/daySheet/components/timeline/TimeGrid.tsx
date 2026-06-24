@@ -128,7 +128,7 @@ const calculateTaskPositions = (tasks: TaskData[]): PositionedTask[] => {
 const TimeGrid: React.FC<TimeGridProps> = ({
   tasks,
   totalHoursToShow = 24,
-  hourHeightPx = 40,
+  hourHeightPx = 60,
   startHour = 0,
 }) => {
   const hours = generateHours(startHour, startHour + totalHoursToShow);
@@ -143,7 +143,7 @@ const TimeGrid: React.FC<TimeGridProps> = ({
 
   return (
     <div
-      className="relative w-full border-l border-white/10 bg-transparent"
+      className="relative w-full border-l border-white/8 bg-transparent"
       style={{
         height: `${totalGridHeight}px`,
       }}

@@ -26,54 +26,97 @@ function calculateStreak(completedDates: string[]): number {
     }
   }
   return streak;
-  
 }
 
 const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
-  const { items, selectedDateParts, selectedHabits, selectedTasks, selectedDateKey: effectiveDateKey } =
-    useDaySheet(selectedDateKey);
+  const {
+    items,
+    selectedDateParts,
+    selectedHabits,
+    selectedTasks,
+    selectedDateKey: effectiveDateKey,
+  } = useDaySheet(selectedDateKey);
 
   const { habits: storeHabits, toggleHabitDate } = useFormStore();
 
+  const completedHabits = selectedHabits.filter((h) => {
+    const sh = storeHabits.find((s) => s.id === h.id);
+    return sh?.completedDates?.includes(effectiveDateKey);
+  }).length;
+
   return (
-    <div className="mx-6 flex min-h-[95vh] max-w-full flex-col gap-6 py-6 lg:mx-10 lg:flex-row">
-      {/* Timeline panel */}
-      <div className="min-w-0 flex-1 rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur">
-        <div className="mb-4 border-b border-white/10 pb-4">
-          <h1 className="text-xl font-semibold text-(--text-foreground)">جزئیات روز</h1>
-          <p className="mt-1 text-sm text-slate-400">{selectedDateParts.fullLabel}</p>
+    <div className="mx-4 flex min-h-[95vh] max-w-full flex-col gap-5 py-5 lg:mx-8 lg:flex-row">
+      {/* ─── Timeline panel ─── */}
+      <div className="min-w-0 flex-1 overflow-hidden rounded-2xl border border-white/8 bg-linear-to-b from-white/6 to-white/2 shadow-2xl backdrop-blur-xl">
+        {/* Header */}
+        <div className="relative border-b border-white/8 bg-linear-to-r from-indigo-500/10 via-violet-500/5 to-transparent px-6 py-5">
+          <div className="relative flex items-center justify-between">
+            <div>
+              <div className="mb-1 flex items-center gap-2">
+                <div className="h-1.5 w-6 rounded-full bg-linear-to-r from-indigo-400 to-violet-400" />
+                <span className="text-xs font-medium tracking-widest text-indigo-300/80 uppercase">
+                  برنامه روز
+                </span>
+              </div>
+              <h1 className="text-2xl font-bold text-white">{selectedDateParts.fullLabel}</h1>
+            </div>
+            <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-2">
+              <span className="text-sm font-medium text-slate-300">{items.length} مورد</span>
+            </div>
+          </div>
         </div>
 
-        <div className="relative w-full pl-14 overflow-y-auto max-h-[75vh]">
-          <TimeGrid tasks={selectedTasks} />
+        {/* Timeline */}
+        <div className="relative max-h-[calc(100vh-200px)] w-full overflow-y-auto px-4 py-4">
+          <div className="pl-14">
+            <TimeGrid tasks={selectedTasks} />
+          </div>
         </div>
       </div>
 
-      {/* Sidebar */}
-      <aside className="w-full space-y-4 lg:w-[24rem]">
-        {/* Focus Timer */}
+      {/* ─── Sidebar ─── */}
+      <aside className="w-full space-y-4 lg:w-[22rem]">
         <FocusTimer />
 
-        {/* Summary + Productivity + Upcoming */}
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur">
-          <DaySummary items={items} />
-          <ProductivityScore items={items} />
-          <UpcomingPanel items={items} />
+        {/* Stats panel */}
+        <div className="overflow-hidden rounded-2xl border border-white/8 bg-linear-to-b from-white/6 to-white/2 shadow-xl backdrop-blur-xl">
+          <div className="border-b border-white/8 bg-linear-to-r from-violet-500/8 to-transparent px-5 py-4">
+            <div className="flex items-center gap-2">
+              <div className="h-1.5 w-4 rounded-full bg-linear-to-r from-violet-400 to-pink-400" />
+              <h2 className="text-sm font-semibold text-white">آمار و عملکرد</h2>
+            </div>
+          </div>
+          <div className="space-y-5 p-5">
+            <DaySummary items={items} />
+            <ProductivityScore items={items} />
+            <UpcomingPanel items={items} />
+          </div>
         </div>
 
-        {/* Habits */}
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur">
-          <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
-            <h2 className="text-base font-semibold text-(--text-foreground)">عادت های این روز</h2>
-            <span className="rounded-full bg-white/10 px-3 py-1 text-xs text-(--text-foreground)">
-              {selectedHabits.length}
-            </span>
+        {/* Habits panel */}
+        <div className="overflow-hidden rounded-2xl border border-white/8 bg-linear-to-b from-white/6 to-white/2 shadow-xl backdrop-blur-xl">
+          <div className="border-b border-white/8 bg-linear-to-r from-emerald-500/8 to-transparent px-5 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="h-1.5 w-4 rounded-full bg-linear-to-r from-emerald-400 to-teal-400" />
+                <h2 className="text-sm font-semibold text-white">عادت‌های روزانه</h2>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-medium text-emerald-400">
+                  {completedHabits}/{selectedHabits.length}
+                </span>
+                <span className="rounded-full border border-emerald-500/20 bg-emerald-500/15 px-2.5 py-0.5 text-xs font-medium text-emerald-400">
+                  {selectedHabits.length}
+                </span>
+              </div>
+            </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2.5 p-4">
             {selectedHabits.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-white/10 px-4 py-5 text-sm text-slate-400">
-                برای این روز عادتی ثبت نشده است.
+              <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-white/10 px-4 py-8 text-center">
+                <span className="text-2xl">📋</span>
+                <span className="text-sm text-slate-400">برای این روز عادتی ثبت نشده</span>
               </div>
             ) : null}
 
@@ -86,33 +129,37 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
               return (
                 <div
                   key={habit.id}
-                  className={`rounded-2xl border p-4 transition-all ${
+                  className={`group relative overflow-hidden rounded-xl border p-4 transition-all duration-300 ${
                     isDoneToday
-                      ? "border-emerald-500/30 bg-emerald-500/10"
-                      : "border-white/10 bg-white/5"
+                      ? "border-emerald-500/25 bg-linear-to-r from-emerald-500/10 to-teal-500/5"
+                      : "border-white/8 bg-white/3 hover:border-white/15 hover:bg-white/6"
                   }`}
                 >
-                  <div className="flex items-center justify-between gap-3">
+                  <div className="relative flex items-center justify-between gap-3">
                     <div className="min-w-0 flex-1">
-                      <div className="text-sm font-semibold text-(--text-foreground) truncate">
+                      <div
+                        className={`truncate text-sm font-semibold ${
+                          isDoneToday ? "text-emerald-100" : "text-white"
+                        }`}
+                      >
                         {habit.HabitName}
                       </div>
                       <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-slate-400">
                         {streak > 0 && (
-                          <span className="font-medium text-amber-400">🔥 {streak} روز</span>
+                          <span className="font-semibold text-amber-400">🔥 {streak} روز</span>
                         )}
-                        <span className="rounded-full bg-white/10 px-2 py-0.5">
-                          {habit.HabitFrequency} بار/هفته
+                        <span className="rounded-full border border-white/8 bg-white/8 px-2 py-0.5">
+                          {habit.HabitFrequency}× هفته
                         </span>
                       </div>
                     </div>
                     <button
                       type="button"
                       onClick={() => toggleHabitDate(habit.id, effectiveDateKey)}
-                      className={`shrink-0 rounded-xl px-3 py-1.5 text-xs font-medium transition ${
+                      className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 ${
                         isDoneToday
-                          ? "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30"
-                          : "bg-white/10 text-slate-400 hover:bg-white/20"
+                          ? "border border-emerald-500/20 bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30"
+                          : "border border-white/10 bg-white/8 text-slate-300 hover:bg-white/15"
                       }`}
                     >
                       {isDoneToday ? "✓ انجام شد" : "انجام نشده"}

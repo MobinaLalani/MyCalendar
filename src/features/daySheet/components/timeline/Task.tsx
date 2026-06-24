@@ -1,4 +1,3 @@
-// Task.tsx
 import React from "react";
 
 interface TaskData {
@@ -18,6 +17,13 @@ interface TaskProps {
   width?: number;
 }
 
+const timeToMinutes = (timeStr: string): number => {
+  if (!timeStr || !timeStr.includes(":")) return 0;
+  const [hours, minutes] = timeStr.split(":").map(Number);
+  if (Number.isNaN(hours) || Number.isNaN(minutes)) return 0;
+  return hours * 60 + minutes;
+};
+
 const Task: React.FC<TaskProps> = ({
   task,
   startHour,
@@ -26,52 +32,49 @@ const Task: React.FC<TaskProps> = ({
   width = 100,
 }) => {
   const { title, startTime, endTime, color } = task;
-
-  const timeToMinutes = (timeStr: string) => {
-    if (!timeStr || !timeStr.includes(":")) {
-      return 0;
-    }
-
-    const [hours, minutes] = timeStr.split(":").map(Number);
-
-    if (Number.isNaN(hours) || Number.isNaN(minutes)) {
-      return 0;
-    }
-
-    return hours * 60 + minutes;
-  };
+  const accent = color || "#6366f1";
 
   const startMinutes = timeToMinutes(startTime);
-
   const endMinutes = timeToMinutes(endTime);
-
   const gridStartMinutes = startHour * 60;
-
   const topPosition = (startMinutes - gridStartMinutes) * pixelsPerMinute;
-
-  const durationMinutes = endMinutes - startMinutes;
-
-  const taskHeight = durationMinutes * pixelsPerMinute;
+  const taskHeight = Math.max((endMinutes - startMinutes) * pixelsPerMinute, 22);
 
   return (
     <div
-      className="absolute px-2 py-1.5 text-white text-xs rounded-xl overflow-hidden shadow-lg"
+      className="absolute cursor-pointer overflow-hidden rounded-lg shadow-lg transition-all duration-200 hover:scale-[1.01] hover:shadow-xl"
       style={{
         top: `${topPosition}px`,
-        left: `${left}%`,
+        left: `calc(${left}% + 2px)`,
         width: `calc(${width}% - 6px)`,
         height: `${taskHeight}px`,
-        backgroundColor: `${color || "#3498db"}cc`,
-        borderLeft: `3px solid ${color || "#3498db"}`,
+        backgroundColor: `${accent}18`,
+        borderLeft: `3px solid ${accent}`,
+        borderTop: `1px solid ${accent}30`,
         zIndex: 10,
       }}
     >
-      <div className="font-semibold truncate leading-tight">{title}</div>
-      {taskHeight > 24 && (
-        <div className="opacity-70 text-[10px] mt-0.5">
-          {startTime} – {endTime}
+      {/* Subtle inner glow */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: `linear-gradient(to right, ${accent}10, transparent)`,
+        }}
+      />
+
+      <div className="relative px-2.5 py-1.5">
+        <div className="truncate text-xs font-semibold leading-tight text-white">
+          {title}
         </div>
-      )}
+        {taskHeight > 28 && (
+          <div
+            className="mt-0.5 font-mono text-[10px]"
+            style={{ color: `${accent}cc` }}
+          >
+            {startTime} – {endTime}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

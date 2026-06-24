@@ -3,114 +3,177 @@
 import { useFocusTimer } from "../hooks/useFocusTimer";
 
 const PHASE_CONFIG = {
-  idle:  { color: "#f4d35e", label: "آماده" },
-  focus: { color: "#f4d35e", label: "تمرکز" },
-  break: { color: "#34d399", label: "استراحت" },
-  done:  { color: "#a78bfa", label: "تمام شد" },
+  idle: {
+    color: "#818cf8",
+    trackColor: "rgba(99,102,241,0.12)",
+    label: "آماده برای تمرکز",
+    gradientFrom: "from-indigo-500/10",
+    accentClass: "from-indigo-400 to-violet-400",
+  },
+  focus: {
+    color: "#f4d35e",
+    trackColor: "rgba(244,211,94,0.12)",
+    label: "در حال تمرکز",
+    gradientFrom: "from-amber-500/10",
+    accentClass: "from-amber-400 to-yellow-400",
+  },
+  break: {
+    color: "#34d399",
+    trackColor: "rgba(52,211,153,0.12)",
+    label: "زمان استراحت",
+    gradientFrom: "from-emerald-500/10",
+    accentClass: "from-emerald-400 to-teal-400",
+  },
+  done: {
+    color: "#a78bfa",
+    trackColor: "rgba(167,139,250,0.12)",
+    label: "آفرین! تمام شد 🎉",
+    gradientFrom: "from-violet-500/10",
+    accentClass: "from-violet-400 to-purple-400",
+  },
 };
 
-const RADIUS = 45;
+const RADIUS = 46;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 export default function FocusTimer() {
-  const { phase, timeLabel, progress, isRunning, completedPomodoros, start, pause, reset, startBreak } =
-    useFocusTimer();
+  const {
+    phase,
+    timeLabel,
+    progress,
+    isRunning,
+    completedPomodoros,
+    start,
+    pause,
+    reset,
+    startBreak,
+  } = useFocusTimer();
 
   const cfg = PHASE_CONFIG[phase];
   const strokeOffset = CIRCUMFERENCE - (progress / 100) * CIRCUMFERENCE;
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
-      <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-(--text-foreground)">تایمر تمرکز</h3>
-        {completedPomodoros > 0 && (
-          <span className="text-xs text-amber-400">
-            🍅 × {completedPomodoros}
-          </span>
-        )}
-      </div>
-
-      {/* Circular ring */}
-      <div className="mb-4 flex justify-center">
-        <div className="relative">
-          <svg width="120" height="120" viewBox="0 0 100 100" className="-rotate-90">
-            <circle
-              cx="50" cy="50" r={RADIUS}
-              fill="none"
-              stroke="rgba(255,255,255,0.08)"
-              strokeWidth="7"
-            />
-            <circle
-              cx="50" cy="50" r={RADIUS}
-              fill="none"
-              stroke={cfg.color}
-              strokeWidth="7"
-              strokeLinecap="round"
-              strokeDasharray={CIRCUMFERENCE}
-              strokeDashoffset={strokeOffset}
-              style={{ transition: "stroke-dashoffset 0.8s ease" }}
-            />
-          </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-xl font-bold text-(--text-foreground)">{timeLabel}</span>
-            <span className="text-[11px] text-slate-400">{cfg.label}</span>
+    <div
+      className={`overflow-hidden rounded-2xl border border-white/8 bg-linear-to-b ${cfg.gradientFrom} to-white/2 shadow-xl backdrop-blur-xl`}
+    >
+      {/* Header */}
+      <div className="border-b border-white/8 px-5 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className={`h-1.5 w-4 rounded-full bg-linear-to-r ${cfg.accentClass}`} />
+            <h3 className="text-sm font-semibold text-white">تایمر تمرکز</h3>
           </div>
+          {completedPomodoros > 0 && (
+            <div className="flex items-center gap-1.5 rounded-lg border border-amber-500/20 bg-amber-500/15 px-2.5 py-1">
+              <span className="text-[11px] font-medium text-amber-300">
+                🍅 {completedPomodoros} پومودورو
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Controls */}
-      <div className="flex gap-2">
-        {phase === "idle" && (
-          <button
-            onClick={start}
-            className="flex-1 rounded-xl bg-amber-400 py-2 text-sm font-medium text-black transition hover:bg-amber-300"
-          >
-            شروع
-          </button>
-        )}
+      <div className="p-5">
+        {/* Circular progress */}
+        <div className="mb-5 flex justify-center">
+          <div className="relative">
+            <svg width="148" height="148" viewBox="0 0 110 110" className="-rotate-90">
+              <defs>
+                <filter id="timer-glow">
+                  <feGaussianBlur stdDeviation="1.5" result="coloredBlur" />
+                  <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <circle
+                cx="55"
+                cy="55"
+                r={RADIUS}
+                fill="none"
+                stroke={cfg.trackColor}
+                strokeWidth="7"
+              />
+              <circle
+                cx="55"
+                cy="55"
+                r={RADIUS}
+                fill="none"
+                stroke={cfg.color}
+                strokeWidth="7"
+                strokeLinecap="round"
+                strokeDasharray={CIRCUMFERENCE}
+                strokeDashoffset={strokeOffset}
+                filter="url(#timer-glow)"
+                style={{ transition: "stroke-dashoffset 0.8s ease, stroke 0.5s ease" }}
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="font-mono text-2xl font-bold tracking-tight text-white">
+                {timeLabel}
+              </span>
+              <span className="mt-0.5 text-[11px] font-medium" style={{ color: cfg.color }}>
+                {cfg.label}
+              </span>
+            </div>
+          </div>
+        </div>
 
-        {(phase === "focus" || (phase === "break" && isRunning)) && (
-          <>
+        {/* Controls */}
+        <div className="flex gap-2">
+          {phase === "idle" && (
             <button
-              onClick={pause}
-              className="flex-1 rounded-xl bg-amber-400/20 py-2 text-sm font-medium text-amber-400 transition hover:bg-amber-400/30"
+              onClick={start}
+              className="flex-1 rounded-xl bg-indigo-500 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all duration-200 hover:bg-indigo-400"
             >
-              {isRunning ? "توقف" : "ادامه"}
+              ▶ شروع تمرکز
             </button>
+          )}
+
+          {(phase === "focus" || (phase === "break" && isRunning)) && (
+            <>
+              <button
+                onClick={pause}
+                className="flex-1 rounded-xl border border-amber-400/20 bg-amber-500/15 py-2.5 text-sm font-semibold text-amber-300 transition-all duration-200 hover:bg-amber-500/25"
+              >
+                {isRunning ? "⏸ توقف" : "▶ ادامه"}
+              </button>
+              <button
+                onClick={reset}
+                className="rounded-xl border border-white/10 bg-white/6 px-4 py-2.5 text-sm text-slate-400 transition-all duration-200 hover:bg-white/12"
+              >
+                ↺
+              </button>
+            </>
+          )}
+
+          {phase === "break" && !isRunning && (
+            <>
+              <button
+                onClick={startBreak}
+                className="flex-1 rounded-xl border border-emerald-500/20 bg-emerald-500/15 py-2.5 text-sm font-semibold text-emerald-300 transition-all duration-200 hover:bg-emerald-500/25"
+              >
+                ▶ شروع استراحت
+              </button>
+              <button
+                onClick={reset}
+                className="rounded-xl border border-white/10 bg-white/6 px-4 py-2.5 text-sm text-slate-400 transition-all duration-200 hover:bg-white/12"
+              >
+                ↺
+              </button>
+            </>
+          )}
+
+          {phase === "done" && (
             <button
               onClick={reset}
-              className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-400 transition hover:bg-white/10"
+              className="flex-1 rounded-xl border border-violet-500/20 bg-violet-500/15 py-2.5 text-sm font-semibold text-violet-300 transition-all duration-200 hover:bg-violet-500/25"
             >
-              ↺
+              🔄 شروع مجدد
             </button>
-          </>
-        )}
-
-        {phase === "break" && !isRunning && (
-          <>
-            <button
-              onClick={startBreak}
-              className="flex-1 rounded-xl bg-emerald-500/20 py-2 text-sm font-medium text-emerald-400 transition hover:bg-emerald-500/30"
-            >
-              شروع استراحت
-            </button>
-            <button
-              onClick={reset}
-              className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-400 transition hover:bg-white/10"
-            >
-              ↺
-            </button>
-          </>
-        )}
-
-        {phase === "done" && (
-          <button
-            onClick={reset}
-            className="flex-1 rounded-xl bg-white/10 py-2 text-sm font-medium text-(--text-foreground) transition hover:bg-white/20"
-          >
-            مجدد
-          </button>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

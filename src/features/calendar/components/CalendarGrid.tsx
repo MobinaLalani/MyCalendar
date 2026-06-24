@@ -102,7 +102,8 @@ export default function CalendarGrid() {
             onStartCreate={handleStartCreate}
             onCancelCreate={handleCancelCreate}
             onViewDaySheet={handleViewDaySheet}
-          />
+
+/>
         </div>
       </div>
     </section>

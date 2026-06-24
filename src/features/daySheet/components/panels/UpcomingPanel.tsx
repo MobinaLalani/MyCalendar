@@ -11,27 +11,35 @@ const UpcomingPanel: React.FC<UpcomingPanelProps> = ({ items }) => {
   const upcoming = items
     .filter((i) => new Date(i.startDate) > now)
     .sort(
-      (a, b) =>
-        new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
+      (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
     )
     .slice(0, 5);
 
   return (
     <div>
-      <h3 className="text-sm font-semibold text-(--text-foreground) mb-3">آیتم‌های بعدی</h3>
+      <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+        در پیش رو
+      </h3>
       {upcoming.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-white/10 px-4 py-4 text-sm text-slate-400 text-center">
-          آیتمی در راه نیست
+        <div className="flex flex-col items-center gap-1.5 rounded-xl border border-dashed border-white/10 px-4 py-5 text-center">
+          <span className="text-xl">🎉</span>
+          <span className="text-xs text-slate-500">هیچ موردی در پیش رو نیست</span>
         </div>
       ) : (
         <div className="space-y-2">
           {upcoming.map((i) => (
             <div
               key={i.id}
-              className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2"
+              className="group flex items-center gap-3 rounded-xl border border-white/6 bg-white/3 px-3 py-2.5 transition-all duration-150 hover:border-white/12 hover:bg-white/6"
             >
-              <span className="text-sm text-(--text-foreground) truncate">{i.title}</span>
-              <span className="text-xs text-slate-400 shrink-0 ml-2">
+              <div
+                className="h-7 w-1 shrink-0 rounded-full"
+                style={{ backgroundColor: i.color || "#6366f1" }}
+              />
+              <span className="flex-1 truncate text-sm text-white/80 transition-colors group-hover:text-white">
+                {i.title}
+              </span>
+              <span className="shrink-0 font-mono text-xs text-slate-500">
                 {new Date(i.startDate).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",

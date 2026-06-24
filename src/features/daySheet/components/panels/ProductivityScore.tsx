@@ -10,22 +10,46 @@ const ProductivityScore: React.FC<ProductivityScoreProps> = ({ items }) => {
   const total = items.length;
   const score = total === 0 ? 0 : Math.round((completed / total) * 100);
 
-  const barColor =
+  const config =
     score >= 80
-      ? "from-emerald-500 to-teal-400"
+      ? {
+          gradient: "from-emerald-500 to-teal-400",
+          glowGradient: "from-emerald-500 to-teal-400",
+          color: "text-emerald-300",
+          label: "عالی",
+        }
       : score >= 50
-        ? "from-amber-500 to-yellow-400"
-        : "from-red-500 to-rose-400";
+        ? {
+            gradient: "from-amber-500 to-yellow-400",
+            glowGradient: "from-amber-500 to-yellow-400",
+            color: "text-amber-300",
+            label: "خوب",
+          }
+        : {
+            gradient: "from-rose-500 to-red-400",
+            glowGradient: "from-rose-500 to-red-400",
+            color: "text-rose-300",
+            label: "نیاز به تلاش",
+          };
 
   return (
-    <div className="border-b border-white/10 pb-4 mb-4">
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-(--text-foreground)">امتیاز بهره‌وری</h3>
-        <span className="text-lg font-bold text-(--text-foreground)">{score}%</span>
+    <div>
+      <div className="mb-2 flex items-center justify-between">
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          بهره‌وری
+        </h3>
+        <div className="flex items-center gap-2">
+          <span className={`text-xs font-medium ${config.color}`}>{config.label}</span>
+          <span className={`text-lg font-bold leading-none ${config.color}`}>{score}%</span>
+        </div>
       </div>
-      <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+      <div className="relative h-2.5 w-full overflow-hidden rounded-full border border-white/6 bg-white/6">
         <div
-          className={`h-2 rounded-full bg-linear-to-r transition-all duration-500 ${barColor}`}
+          className={`h-full rounded-full bg-linear-to-r transition-all duration-700 ease-out ${config.gradient}`}
+          style={{ width: `${score}%` }}
+        />
+        <div
+          className={`absolute inset-y-0 left-0 rounded-full bg-linear-to-r opacity-40 blur-sm ${config.glowGradient}`}
           style={{ width: `${score}%` }}
         />
       </div>
