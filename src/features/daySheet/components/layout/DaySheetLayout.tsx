@@ -96,6 +96,7 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
 
         {/* Habits panel */}
         <div className="overflow-hidden rounded-3xl border border-black ">
+          
           <div className="border border-black  rounded-3xl px-5 py-4 bg-(--yellow) m-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 ">
