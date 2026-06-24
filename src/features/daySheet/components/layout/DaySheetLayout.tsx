@@ -80,11 +80,11 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
         <FocusTimer />
 
         {/* Stats panel */}
-        <div className="overflow-hidden rounded-2xl border border-white/8 bg-linear-to-b from-white/6 to-white/2 shadow-xl backdrop-blur-xl">
-          <div className="border-b border-white/8 bg-linear-to-r from-violet-500/8 to-transparent px-5 py-4">
-            <div className="flex items-center gap-2">
-              <div className="h-1.5 w-4 rounded-full bg-linear-to-r from-violet-400 to-pink-400" />
-              <h2 className="text-sm font-semibold text-white">آمار و عملکرد</h2>
+        <div className="overflow-hidden rounded-3xl border border-black ">
+          <div className="border border-black bg-(--yellow) m-3 rounded-3xl px-5 py-4">
+            <div className="flex items-center gap-2 ">
+          <div className="h-2.5 w-2.5 rounded-full bg-black" />
+              <h2 className=" font-bold text-black">آمار و عملکرد</h2>
             </div>
           </div>
           <div className="space-y-5 p-5">
