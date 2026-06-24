@@ -45,27 +45,28 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
   }).length;
 
   return (
-    <div className="mx-4 flex min-h-[95vh] max-w-full flex-col gap-5 py-5 lg:mx-8 lg:flex-row">
-      {/* ─── Timeline panel ─── */}
-      <div className="min-w-0 flex-1 overflow-hidden rounded-2xl border border-white/8 bg-linear-to-b from-white/6 to-white/2 shadow-2xl backdrop-blur-xl">
-        {/* Header */}
-        <div className="relative border-b border-white/8 bg-linear-to-r from-indigo-500/10 via-violet-500/5 to-transparent px-6 py-5">
-          <div className="relative flex items-center justify-between">
-            <div>
-              <div className="mb-1 flex items-center gap-2">
-                <div className="h-1.5 w-6 rounded-full bg-linear-to-r from-indigo-400 to-violet-400" />
-                <span className="text-xs font-medium tracking-widest text-indigo-300/80 uppercase">
-                  برنامه روز
-                </span>
-              </div>
-              <h1 className="text-2xl font-bold text-white">{selectedDateParts.fullLabel}</h1>
+    <div className="mx-4 flex min-h-[95vh] max-w-full flex-col gap-5 py-5 lg:mx-8">
+      {/* Header */}
+      <div className="relative border-b border-white/8 bg-(--lightGray) px-6 py-5 rounded-4xl">
+        <div className="relative flex items-center justify-between">
+          <div>
+            <div className="mb-1 flex items-center gap-2">
+              <div className="h-1.5 w-6 rounded-full bg-linear-to-r from-indigo-400 to-violet-400" />
+              <span className="text-xs font-medium tracking-widest text-indigo-300/80 uppercase">
+                برنامه روز
+              </span>
             </div>
-            <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-2">
-              <span className="text-sm font-medium text-slate-300">{items.length} مورد</span>
-            </div>
+            <h1 className="text-2xl font-bold text-(--text-foreground)">{selectedDateParts.fullLabel}</h1>
+          </div>
+          <div className=" border border-black rounded-full  bg-(--yellow) px-4 py-2">
+            <span className="text-sm font-medium  text-(--text-foreground)">{items.length} مورد</span>
           </div>
         </div>
+      </div>
 
+      <div className="flex min-h-0 flex-1 flex-col gap-5 lg:flex-row">
+      {/* ─── Timeline panel ─── */}
+      <div className="min-w-0 flex-1 overflow-hidden rounded-2xl border border-white/8  shadow-2xl backdrop-blur-xl">
         {/* Timeline */}
         <div className="relative max-h-[calc(100vh-200px)] w-full overflow-y-auto px-4 py-4">
           <div className="pl-14">
@@ -171,6 +172,7 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
           </div>
         </div>
       </aside>
+      </div>
     </div>
   );
 };

@@ -62,7 +62,7 @@ export default function DayTimelinePanel({
       </div>
 
       <div className="mt-4 space-y-4">
-        <section className="rounded-3xl border border-black bg-[#cfc8ba] p-4">
+        <section className="rounded-3xl border border-black bg-(--lightGray) p-4">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <h3 className="text-base font-semibold text-black">عادت های روز</h3>
             <span className="inline-flex items-center rounded-full bg-violet-500/15 px-3 py-1 text-xs text-black">
@@ -105,7 +105,7 @@ export default function DayTimelinePanel({
           </div>
         </section>
 
-        <section className="rounded-3xl border border-black bg-[#cfc8ba] p-4">
+        <section className="rounded-3xl border border-black bg-(--lightGray) p-4">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <h3 className="text-base font-semibold text-black">تایم لاین روز</h3>
             <span className="inline-flex items-center rounded-full bg-violet-500/15 px-3 py-1 text-xs text-black">

@@ -31,7 +31,9 @@
   /* 🔵 secondary (آبی) */
 
   --secondary-foreground: #1c1c1c;
+  --lightGray:#cfc8ba;
   --lightBlue:#bfcfcd;
+  --yellow:#FFD230;
   /* ⚠️ states */
   --success: #22c55e;
   --warning: #facc15;

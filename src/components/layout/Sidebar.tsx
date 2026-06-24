@@ -72,7 +72,7 @@ export default function Sidebar({ isOpen, onToggle, onClose }: SidebarProps) {
         animate={{ right: isOpen ? 250 : 16 }}
         transition={{ duration: 0.24, ease: "easeOut" }}
         onClick={onToggle}
-        className={`fixed top-5 z-50 inline-flex h-11 items-center gap-2 rounded-full border bg-amber-300 px-4 text-sm font-medium  ${isOpen ? "text-(--text-foreground)" : "text-white"} transition hover:bg-[#151515] hover:text-white`}
+        className={`fixed top-5 z-50 inline-flex h-11 items-center gap-2 rounded-full border bg-(--yellow) px-4 text-sm font-medium  ${isOpen ? "text-(--text-foreground)" : "text-white"} transition hover:bg-[#151515] hover:text-white`}
       >
         <span>{isOpen ? "بستن" : "منو"}</span>
       </motion.button>
