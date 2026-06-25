@@ -90,6 +90,7 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
           <div className="space-y-5 p-5">
             <DaySummary items={items} />
             <ProductivityScore items={items} />
+            
             <UpcomingPanel items={items} />
           </div>
         </div>
@@ -102,7 +103,7 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
               <div className="flex items-center gap-2 ">
                 
                 <div className="h-1.5 w-4 rounded-full bg-linear-to-r from-emerald-400 to-teal-400" />
-                
+
                 <h2 className="text-sm font-semibold text-black">عادت‌های روزانه</h2>
               </div>
               <div className="flex items-center gap-2">
