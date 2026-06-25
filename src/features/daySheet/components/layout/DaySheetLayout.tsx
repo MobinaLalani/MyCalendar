@@ -102,6 +102,7 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
               <div className="flex items-center gap-2 ">
                 
                 <div className="h-1.5 w-4 rounded-full bg-linear-to-r from-emerald-400 to-teal-400" />
+                
                 <h2 className="text-sm font-semibold text-black">عادت‌های روزانه</h2>
               </div>
               <div className="flex items-center gap-2">
@@ -109,7 +110,7 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
                 <span className="text-xs font-medium text-emerald-400">
 
                   {completedHabits}/{selectedHabits.length}
-                  
+
                 </span>
                 <span className="rounded-full border border-emerald-500/20 bg-emerald-500/15 px-2.5 py-0.5 text-xs font-medium text-emerald-400">
                   {selectedHabits.length}
