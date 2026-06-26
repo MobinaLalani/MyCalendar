@@ -8,8 +8,9 @@ const EventDetailsModal: React.FC<{ title?: string }> = ({ title }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-      
+
       <div className="bg-white p-5 rounded-md w-96">
+        
         <h2 className="text-lg font-semibold mb-3">
           {title || "Event Details"}
         </h2>
