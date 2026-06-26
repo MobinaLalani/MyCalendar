@@ -8,6 +8,7 @@ type DaySheetRouteProps = {
 };
 
 export default async function Page({ searchParams }: DaySheetRouteProps) {
+  
   const query = await searchParams;
   const selectedDateKey = Array.isArray(query.date) ? query.date[0] : query.date;
 
