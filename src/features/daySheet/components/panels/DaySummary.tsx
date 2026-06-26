@@ -13,6 +13,7 @@ const DaySummary: React.FC<DaySummaryProps> = ({ items }) => {
   return (
     <div>
       <div className="mb-1 flex items-center justify-between">
+        
         <span className="text-sm font-semibold text-black">خلاصه روز</span>
         <span className="text-sm font-bold text-slate-700">
           {completed}/{total}
