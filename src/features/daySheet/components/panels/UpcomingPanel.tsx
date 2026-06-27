@@ -32,7 +32,7 @@ const UpcomingPanel: React.FC<UpcomingPanelProps> = ({ items }) => {
           {upcoming.map((i) => (
             <div
               key={i.id}
-              className="group flex items-center gap-3 rounded-3xl border border-black bg-white/3 px-3 py-4 transition-all duration-150 hover:border-white/12 "
+              className="group flex items-center gap-3 rounded-3xl border border-black bg-white/3 px-3 py-4 transition-all duration-200 hover:scale-[1.02]"
             >
               {/* <div
                 className="h-7 w-1 shrink-0 rounded-full"
