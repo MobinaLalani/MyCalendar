@@ -66,7 +66,7 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
 
       <div className="flex min-h-0 flex-1 flex-col gap-5 lg:flex-row">
       {/* ─── Timeline panel ─── */}
-      <div className="min-w-0 flex-1 overflow-hidden rounded-2xl border border-white/8  shadow-2xl backdrop-blur-xl">
+      <div className="min-w-0 flex-1 overflow-hidden rounded-3xl border border-black backdrop-blur-xl">
         {/* Timeline */}
         <div className="relative max-h-[calc(100vh-200px)] w-full overflow-y-auto px-4 py-4">
           <div className="pl-14">

@@ -19,8 +19,8 @@ const HourRow: React.FC<HourRowProps> = ({ hour, height }) => {
 
       {/* Hour label */}
       <span
-        className={`absolute -left-14 top-0 -translate-y-1.5 select-none font-mono text-[11px] ${
-          isNoon ? "font-semibold text-slate-300" : "text-slate-500"
+        className={`absolute -left-14 top-0 -translate-y-2 select-none font-mono text-[16px] ${
+          isNoon ? "font-bold text-(--yellow)" : "font-medium  text-black "
         }`}
       >
         {hour}
