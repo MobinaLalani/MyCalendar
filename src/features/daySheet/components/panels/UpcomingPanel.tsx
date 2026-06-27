@@ -23,23 +23,25 @@ const UpcomingPanel: React.FC<UpcomingPanelProps> = ({ items }) => {
       {upcoming.length === 0 ? (
         <div className="flex flex-col items-center gap-1.5 rounded-xl border border-dashed border-white/10 px-4 py-5 text-center">
           <span className="text-xl">🎉</span>
-          <span className="text-xs text-slate-500">هیچ موردی در پیش رو نیست</span>
+          <span className="text-xs text-slate-500">
+            هیچ موردی در پیش رو نیست
+          </span>
         </div>
       ) : (
         <div className="space-y-2">
           {upcoming.map((i) => (
             <div
               key={i.id}
-              className="group flex items-center gap-3 rounded-xl border border-white/6 bg-white/3 px-3 py-2.5 transition-all duration-150 hover:border-white/12 hover:bg-white/6"
+              className="group flex items-center gap-3 rounded-3xl border border-black bg-white/3 px-3 py-4 transition-all duration-150 hover:border-white/12 "
             >
-              <div
+              {/* <div
                 className="h-7 w-1 shrink-0 rounded-full"
                 style={{ backgroundColor: i.color || "#6366f1" }}
-              />
-              <span className="flex-1 truncate text-sm text-white/80 transition-colors group-hover:text-white">
+              /> */}
+              <span className="flex-1 truncate text-sm text-black transition-colors ">
                 {i.title}
               </span>
-              <span className="shrink-0 font-mono text-xs text-slate-500">
+              <span className="shrink-0 font-mono text-xs text-(--muted-foreground)">
                 {new Date(i.startDate).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",
