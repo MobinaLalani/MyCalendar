@@ -13,32 +13,37 @@ import StepTwo from "./components/form/HabitType";
 import StepNavigation from "./components/form/StepNavigation";
 import HabitFrequency from "./components/form/HabitFrequency";
 import { useFormStore } from "./store/Store";
+import type { HabitItem } from "./store/Store";
 import { FormValuesType } from "./types/habit.types";
 import HabitStartDate from "./components/form/HabitStartDate";
-import HabitMicroGoal from "./components/form/HabitMicroGoal";
+import HabitCard from "./components/HabitCard";
 
 export default function Index() {
   const [step, setStep] = useState<number>(1);
-const { saveHabit, resetForm, data ,setField } = useFormStore();
+  const [editingId, setEditingId] = useState<string | null>(null);
 
-  const totalSteps = 5;
+  const {
+    saveHabit,
+    updateHabit,
+    resetForm,
+    data,
+    setField,
+    setFields,
+    habits,
+    removeHabit,
+  } = useFormStore();
 
+  const totalSteps = 4;
 
+  const stepLabels = ["نام عادت", "نوع", "تکرار", "تاریخ شروع"];
 
   const renderStep = (currentStep: number) => {
     switch (currentStep) {
-      case 1:
-        return <StepOne />;
-      case 2:
-        return <StepTwo />;
-      case 3:
-        return <HabitFrequency />;
-      case 4: 
-        return <HabitStartDate />;
-      case 5:
-        return <HabitMicroGoal/>;
-      default:
-        return null;
+      case 1: return <StepOne />;
+      case 2: return <StepTwo />;
+      case 3: return <HabitFrequency />;
+      case 4: return <HabitStartDate />;
+      default: return null;
     }
   };
 
@@ -51,27 +56,19 @@ const { saveHabit, resetForm, data ,setField } = useFormStore();
     values: FormValuesType,
   ) => {
     const errors = await validateForm();
-
     const currentFields: Record<number, Array<keyof FormValuesType>> = {
       1: ["HabitName"],
       2: ["HabitType"],
       3: ["HabitFrequency"],
       4: ["HabitStartDate"],
     };
-
     const fields = currentFields[step];
     const stepErrors = fields.some((field) => Boolean(errors[field]));
-
     const touchedFields = fields.reduce<FormikTouched<FormValuesType>>(
-      (acc, field) => {
-        acc[field] = true;
-        return acc;
-      },
+      (acc, field) => { acc[field] = true; return acc; },
       {},
     );
-
     await setTouched(touchedFields, true);
-
     if (!stepErrors) {
       fields.forEach((field) => setField(field, values[field]));
       if (step < totalSteps) setStep(step + 1);
@@ -86,30 +83,108 @@ const { saveHabit, resetForm, data ,setField } = useFormStore();
     values: FormValuesType,
     helpers: FormikHelpers<FormValuesType>,
   ) => {
-
-    saveHabit(); // عادت را ذخیره کن
-    resetForm(); // فرم را ریست کن
+    if (editingId) {
+      updateHabit(editingId, values);
+      setEditingId(null);
+    } else {
+      saveHabit();
+    }
+    resetForm();
     setStep(1);
     helpers.setSubmitting(false);
   };
 
+  const handleEdit = (habit: HabitItem) => {
+    setFields({
+      HabitName: habit.HabitName,
+      HabitType: habit.HabitType,
+      HabitFrequency: habit.HabitFrequency,
+      HabitStartDate: habit.HabitStartDate,
+    });
+    setEditingId(habit.id);
+    setStep(1);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    resetForm();
+    setStep(1);
+  };
+
   return (
-    <div className="min-h-[94vh] flex pr-5">
-      <div className="grid flex-1 gap-2 xl:grid-cols-[minmax(0,1.6fr)_minmax(22rem,0.78fr)] ">
-        <div className=" p-6">
-          <h1 className="text-2xl text-black font-bold mb-6">
-          فرم ثبت عادت خوب 
-          </h1>
+    <div className="mx-4 flex min-h-[95vh] max-w-full flex-col gap-5 py-5 lg:mx-8">
+      {/* Header */}
+      <div className="relative border border-black bg-(--lightGray) px-6 py-5 rounded-3xl">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="mb-1 flex items-center gap-2">
+              <div className="h-1.5 w-6 rounded-full bg-linear-to-r from-yellow-400 to-amber-400" />
+              <span className="text-xs font-medium tracking-widest text-white uppercase">
+                مدیریت عادت‌ها
+              </span>
+            </div>
+            <h1 className="text-2xl font-bold text-white">عادت‌های من</h1>
+          </div>
+          <div className="border border-black rounded-full bg-(--yellow) px-4 py-2">
+            <span className="text-sm font-medium text-black">{habits.length} عادت</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex min-h-0 flex-1 flex-col gap-5 lg:flex-row">
+        {/* Form Panel */}
+        <div className="lg:w-104 overflow-hidden rounded-3xl border border-black bg-(--lightGray)">
+          {/* Form Header */}
+          <div className="border border-black bg-(--yellow) m-3 rounded-2xl px-5 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="h-2.5 w-2.5 rounded-full bg-black" />
+                <h2 className="font-bold text-black">
+                  {editingId ? "ویرایش عادت" : "ثبت عادت جدید"}
+                </h2>
+              </div>
+              {editingId && (
+                <button
+                  type="button"
+                  onClick={handleCancelEdit}
+                  className="text-xs text-black/60 hover:text-black border border-black/20 rounded-lg px-2 py-1 transition-all duration-200"
+                >
+                  انصراف
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Step Indicator */}
+          <div className="flex gap-1.5 px-5 pt-4 pb-1">
+            {stepLabels.map((label, i) => (
+              <div key={i} className="flex flex-1 flex-col items-center gap-1">
+                <div
+                  className={`h-1 w-full rounded-full transition-all duration-300 ${
+                    i <= step - 1 ? "bg-(--yellow)" : "bg-white/10"
+                  }`}
+                />
+                <span
+                  className={`text-[9px] font-medium transition-colors ${
+                    i === step - 1 ? "text-white" : "text-slate-600"
+                  }`}
+                >
+                  {label}
+                </span>
+              </div>
+            ))}
+          </div>
+
           <Formik<FormValuesType>
             initialValues={data}
             enableReinitialize
-            // validationSchema={validationSchemas[step - 1]}
             onSubmit={handleSubmit}
           >
             {({ validateForm, setTouched, values, submitForm }) => (
-              <Form className="text-black max-w-2xl mx-auto">
-                <div className="border p-4 rounded-2xl">{renderStep(step)}</div>
-
+              <Form className="p-5">
+                <div className="min-h-[160px] rounded-2xl border border-black/15 bg-white/3 p-4">
+                  {renderStep(step)}
+                </div>
                 <StepNavigation
                   currentStep={step}
                   totalSteps={totalSteps}
@@ -127,7 +202,38 @@ const { saveHabit, resetForm, data ,setField } = useFormStore();
             )}
           </Formik>
         </div>
-        <div className="bg-yellow-100">یقثبییبلیبل</div>
+
+        {/* Habits List Panel */}
+        <div className="flex-1 overflow-hidden rounded-3xl border border-black bg-(--lightGray)">
+          <div className="border border-black bg-(--yellow) m-3 rounded-2xl px-5 py-4">
+            <div className="flex items-center gap-2">
+              <div className="h-2.5 w-2.5 rounded-full bg-black" />
+              <h2 className="font-bold text-black">لیست عادت‌ها</h2>
+            </div>
+          </div>
+
+          <div className="max-h-[calc(100vh-220px)] overflow-y-auto p-4 space-y-3">
+            {habits.length === 0 ? (
+              <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-white/15 px-4 py-16 text-center">
+                <span className="text-4xl">📋</span>
+                <span className="text-sm text-slate-400">هنوز عادتی ثبت نشده</span>
+                <span className="text-xs text-slate-600">
+                  با فرم سمت چپ اولین عادتت رو ثبت کن
+                </span>
+              </div>
+            ) : (
+              habits.map((habit) => (
+                <HabitCard
+                  key={habit.id}
+                  habit={habit}
+                  isEditing={editingId === habit.id}
+                  onEdit={handleEdit}
+                  onDelete={removeHabit}
+                />
+              ))
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

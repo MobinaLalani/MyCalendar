@@ -19,6 +19,7 @@ type FormStore = {
 
   setFields: (values: Partial<FormValuesType>) => void;
   saveHabit: () => void;
+  updateHabit: (id: string, data: FormValuesType) => void;
   resetForm: () => void;
   removeHabit: (id: string) => void;
   clearHabits: () => void;
@@ -68,6 +69,11 @@ export const useFormStore = create<FormStore>()(
           data: initialData,
         }));
       },
+
+      updateHabit: (id, data) =>
+        set((state) => ({
+          habits: state.habits.map((h) => (h.id === id ? { ...h, ...data } : h)),
+        })),
 
       resetForm: () => set({ data: initialData }),
 
