@@ -136,9 +136,11 @@ export default function Index() {
         <div className="lg:w-104 overflow-hidden rounded-3xl border border-black bg-(--lightGray)">
           {/* Form Header */}
           <div className="border border-black bg-(--yellow) m-3 rounded-2xl px-5 py-4">
+
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 
+
                 <div className="h-2.5 w-2.5 rounded-full bg-black" />
                 <h2 className="font-bold text-black">
                   {editingId ? "ویرایش عادت" : "ثبت عادت جدید"}
