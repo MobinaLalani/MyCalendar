@@ -50,7 +50,7 @@ export default function HabitCard({ habit, isEditing, onEdit, onDelete }: Props)
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
               <h3
-                className={`font-semibold truncate ${isEditing ? "text-black" : "text-white"}`}
+                className={`font-semibold truncate text-black`}
               >
                 {habit.HabitName}
               </h3>
