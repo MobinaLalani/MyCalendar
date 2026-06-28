@@ -114,33 +114,31 @@ export default function Index() {
   return (
     <div className="mx-4 flex min-h-[95vh] max-w-full flex-col gap-5 py-5 lg:mx-8">
       {/* Header */}
-      <div className="relative border border-black bg-(--lightGray) px-6 py-5 rounded-3xl">
+      <div className="relative border border-black  px-6 py-5 rounded-3xl">
         <div className="flex items-center justify-between">
           <div>
             <div className="mb-1 flex items-center gap-2">
               <div className="h-1.5 w-6 rounded-full bg-linear-to-r from-yellow-400 to-amber-400" />
-              <span className="text-xs font-medium tracking-widest text-white uppercase">
+              <span className="text-xs font-medium tracking-widest text-black uppercase">
                 مدیریت عادت‌ها
               </span>
             </div>
-            <h1 className="text-2xl font-bold text-white">عادت‌های من</h1>
+            <h1 className="text-2xl font-bold text-black">عادت‌های من</h1>
           </div>
           <div className="border border-black rounded-full bg-(--yellow) px-4 py-2">
-            <span className="text-sm font-medium text-black">{habits.length} عادت</span>
+            <span className="text-sm font-bold text-black">
+              {habits.length} عادت
+            </span>
           </div>
         </div>
       </div>
-
       <div className="flex min-h-0 flex-1 flex-col gap-5 lg:flex-row">
         {/* Form Panel */}
-        <div className="lg:w-104 overflow-hidden rounded-3xl border border-black bg-(--lightGray)">
+        <div className="lg:w-104 overflow-hidden rounded-3xl border border-black ">
           {/* Form Header */}
           <div className="border border-black bg-(--yellow) m-3 rounded-2xl px-5 py-4">
-
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                
-
                 <div className="h-2.5 w-2.5 rounded-full bg-black" />
                 <h2 className="font-bold text-black">
                   {editingId ? "ویرایش عادت" : "ثبت عادت جدید"}
@@ -150,7 +148,7 @@ export default function Index() {
                 <button
                   type="button"
                   onClick={handleCancelEdit}
-                  className="text-xs text-black/60 hover:text-black border border-black/20 rounded-lg px-2 py-1 transition-all duration-200"
+                  className="text-xs text-black hover:text-black border border-black rounded-3xl px-2 py-1 transition-all duration-200"
                 >
                   انصراف
                 </button>
@@ -160,22 +158,30 @@ export default function Index() {
 
           {/* Step Indicator */}
           <div className="flex gap-1.5 px-5 pt-4 pb-1">
-            {stepLabels.map((label, i) => (
-              <div key={i} className="flex flex-1 flex-col items-center gap-1">
+            {stepLabels.map((label, i) => {
+              const isVisited = i < step - 1;
+              const isCurrent = i === step - 1;
+              return (
                 <div
-                  className={`h-1 w-full rounded-full transition-all duration-300 ${
-                    i <= step - 1 ? "bg-(--yellow)" : "bg-white/10"
-                  }`}
-                />
-                <span
-                  className={`text-[9px] font-medium transition-colors ${
-                    i === step - 1 ? "text-white" : "text-slate-600"
-                  }`}
+                  key={i}
+                  onClick={() => isVisited && setStep(i + 1)}
+                  className={`flex flex-1 flex-col items-center gap-1 ${isVisited ? "cursor-pointer" : "cursor-default"}`}
                 >
-                  {label}
-                </span>
-              </div>
-            ))}
+                  <div
+                    className={`h-1 w-full rounded-full transition-all duration-300 ${
+                      i <= step - 1 ? "bg-(--yellow)" : "bg-white/10"
+                    }`}
+                  />
+                  <span
+                    className={`text-[15px] font-semibold transition-colors ${
+                      isCurrent ? "text-black" : isVisited ? "text-black/70 hover:text-black" : "text-slate-600"
+                    }`}
+                  >
+                    {label}
+                  </span>
+                </div>
+              );
+            })}
           </div>
 
           <Formik<FormValuesType>
@@ -207,7 +213,7 @@ export default function Index() {
         </div>
 
         {/* Habits List Panel */}
-        <div className="flex-1 overflow-hidden rounded-3xl border border-black bg-(--lightGray)">
+        <div className="flex-1 overflow-hidden rounded-3xl border border-black ">
           <div className="border border-black bg-(--yellow) m-3 rounded-2xl px-5 py-4">
             <div className="flex items-center gap-2">
               <div className="h-2.5 w-2.5 rounded-full bg-black" />
@@ -219,7 +225,9 @@ export default function Index() {
             {habits.length === 0 ? (
               <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-white/15 px-4 py-16 text-center">
                 <span className="text-4xl">📋</span>
-                <span className="text-sm text-slate-400">هنوز عادتی ثبت نشده</span>
+                <span className="text-sm text-slate-400">
+                  هنوز عادتی ثبت نشده
+                </span>
                 <span className="text-xs text-slate-600">
                   با فرم سمت چپ اولین عادتت رو ثبت کن
                 </span>

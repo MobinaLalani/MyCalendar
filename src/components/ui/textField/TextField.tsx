@@ -26,7 +26,7 @@ export default function TextField({
 
   return (
     <div className="w-full">
-      <label htmlFor={name} className="block mb-1 font-medium">
+      <label htmlFor={name} className="block mb-1  text-black font-medium">
         {label}
       </label>
       <input
@@ -34,7 +34,7 @@ export default function TextField({
         type={type}
         placeholder={placeholder}
         {...field}
-        className={`  w-full rounded-2xl border px-4 py-3 text-sm 
+        className={`   text-black w-full rounded-2xl border px-4 py-3 text-sm 
           outline-none transition bob ${className}`}
       />
 
