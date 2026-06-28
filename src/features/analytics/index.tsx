@@ -14,20 +14,21 @@ function calculateStreak(completedDates: string[]): number {
   return streak;
 }
 
-type StatCardProps = { label: string; value: string; sub?: string; color: "violet" | "emerald" | "amber" | "sky" };
+type StatCardProps = {
+  label: string;
+  value: string;
+  sub?: string;
+  bg: "yellow" | "blue" | "white";
+};
 
-function StatCard({ label, value, sub, color }: StatCardProps) {
-  const colorMap = {
-    violet: "from-violet-500/20 to-violet-500/5 border-violet-500/20 text-violet-300",
-    emerald: "from-emerald-500/20 to-emerald-500/5 border-emerald-500/20 text-emerald-300",
-    amber: "from-amber-400/20 to-amber-400/5 border-amber-400/20 text-amber-300",
-    sky: "from-sky-500/20 to-sky-500/5 border-sky-500/20 text-sky-300",
-  };
+function StatCard({ label, value, sub, bg }: StatCardProps) {
+  const bgClass =
+    bg === "yellow" ? "bg-(--yellow)" : bg === "blue" ? "bg-(--lightBlue)" : "bg-white";
   return (
-    <div className={`rounded-3xl border bg-linear-to-br p-5 ${colorMap[color]}`}>
-      <div className="text-2xl font-bold text-(--text-foreground)">{value}</div>
-      <div className="mt-1 text-sm font-medium">{label}</div>
-      {sub && <div className="mt-0.5 text-xs text-slate-500">{sub}</div>}
+    <div className={`rounded-3xl border border-black ${bgClass} p-5`}>
+      <div className="text-3xl font-bold text-black">{value}</div>
+      <div className="mt-1 text-sm font-semibold text-black">{label}</div>
+      {sub && <div className="mt-0.5 text-xs text-black/50">{sub}</div>}
     </div>
   );
 }
@@ -65,9 +66,7 @@ export default function AnalyticsPage() {
   );
   const weekCompleted = weekTasks.filter((t) => t.completed).length;
   const weekScore = weekTasks.length === 0 ? 0 : Math.round((weekCompleted / weekTasks.length) * 100);
-
   const totalCompleted = tasks.filter((t) => t.completed).length;
-
   const maxScore = Math.max(...last14.map((d) => d.score), 1);
 
   const priorityBreakdown = useMemo(() => {
@@ -78,42 +77,59 @@ export default function AnalyticsPage() {
   }, [tasks]);
 
   return (
-    <section className="mx-auto flex min-h-screen w-full flex-col px-4 py-6 sm:px-6 lg:px-8">
-      <div className="mb-6">
-        <h1 className="text-xl font-bold text-(--text-foreground)">گزارش‌ها و تحلیل</h1>
-        <p className="mt-1 text-sm text-slate-400">نمای کلی عملکرد شما</p>
+    <div className="mx-4 flex min-h-[95vh] max-w-full flex-col gap-5 py-5 lg:mx-8">
+      {/* Header */}
+      <div className="relative border border-black px-6 py-5 rounded-3xl bg-[#a2abab]">
+        <div className="mb-1 flex items-center gap-2">
+          <div className="h-1.5 w-6 rounded-full bg-linear-to-r from-yellow-400 to-amber-400" />
+          <span className="text-xs font-medium tracking-widest text-black uppercase">
+            آمار و تحلیل
+          </span>
+        </div>
+        <h1 className="text-2xl font-bold text-black">گزارش‌ها</h1>
+        <p className="mt-1 text-sm text-black/60">نمای کلی عملکرد شما</p>
       </div>
 
       {/* Summary cards */}
-      <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <StatCard label="تسک این هفته" value={String(weekTasks.length)} color="violet" />
-        <StatCard label="تکمیل‌شده" value={String(weekCompleted)} sub={`از ${weekTasks.length} مورد`} color="emerald" />
-        <StatCard label="امتیاز هفته" value={`${weekScore}%`} color="amber" />
-        <StatCard label="کل انجام‌شده" value={String(totalCompleted)} sub="از ابتدا" color="sky" />
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <StatCard label="تسک این هفته" value={String(weekTasks.length)} bg="yellow" />
+        <StatCard label="تکمیل‌شده" value={String(weekCompleted)} sub={`از ${weekTasks.length} مورد`} bg="blue" />
+        <StatCard label="امتیاز هفته" value={`${weekScore}%`} bg="yellow" />
+        <StatCard label="کل انجام‌شده" value={String(totalCompleted)} sub="از ابتدا" bg="blue" />
       </div>
 
-      {/* 14-day productivity bar chart */}
-      <div className="mb-6 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-        <h2 className="mb-5 text-sm font-semibold text-(--text-foreground)">عملکرد ۱۴ روز اخیر</h2>
-        <div className="flex h-36 items-end gap-1.5">
+      {/* 14-day bar chart */}
+      <div className="rounded-3xl border border-black bg-white p-5">
+        {/* panel header */}
+        <div className="mb-5 flex items-center gap-2 rounded-2xl border border-black bg-(--yellow) px-4 py-3">
+          <div className="h-2.5 w-2.5 rounded-full bg-black" />
+          <h2 className="font-bold text-black">عملکرد ۱۴ روز اخیر</h2>
+        </div>
+
+        <div className="flex h-40 items-end gap-1.5 px-1">
           {last14.map((day) => (
             <div key={day.dateKey} className="flex flex-1 flex-col items-center gap-1">
               <div className="flex w-full flex-1 items-end">
                 <div
-                  className={`w-full rounded-t-md transition-all ${
-                    day.isToday ? "bg-amber-400" : day.score > 0 ? "bg-white/30" : "bg-white/8"
+                  className={`w-full rounded-t-lg border-x border-t transition-all ${
+                    day.isToday
+                      ? "border-black bg-black"
+                      : day.score > 0
+                        ? "border-black/30 bg-(--yellow)"
+                        : "border-black/10 bg-black/6"
                   }`}
-                  style={{ height: `${Math.max((day.score / maxScore) * 100, day.total > 0 ? 6 : 2)}%` }}
+                  style={{ height: `${Math.max((day.score / maxScore) * 100, day.total > 0 ? 8 : 3)}%` }}
                   title={`${day.score}% — ${day.completed}/${day.total}`}
                 />
               </div>
-              <span className={`text-[9px] ${day.isToday ? "text-amber-400" : "text-slate-600"}`}>
+              <span className={`text-[9px] font-medium ${day.isToday ? "text-black font-bold" : "text-black/40"}`}>
                 {day.persian.day}
               </span>
             </div>
           ))}
         </div>
-        <div className="mt-2 flex justify-between text-[10px] text-slate-600">
+
+        <div className="mt-3 flex justify-between border-t border-black/10 pt-2 text-[10px] text-black/40">
           <span>۱۴ روز پیش</span>
           <span>امروز</span>
         </div>
@@ -121,26 +137,37 @@ export default function AnalyticsPage() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         {/* Habit stats */}
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-          <h2 className="mb-4 text-sm font-semibold text-(--text-foreground)">وضعیت عادت‌ها</h2>
+        <div className="rounded-3xl border border-black bg-white p-4">
+          <div className="mb-4 flex items-center gap-2 rounded-2xl border border-black bg-(--lightBlue) px-4 py-3">
+            <div className="h-2.5 w-2.5 rounded-full bg-black" />
+            <h2 className="font-bold text-black">وضعیت عادت‌ها</h2>
+          </div>
+
           {habitStats.length === 0 ? (
-            <div className="py-8 text-center text-sm text-slate-500">هیچ عادتی ثبت نشده</div>
+            <div className="flex flex-col items-center gap-2 rounded-2xl border border-dashed border-black/20 py-10 text-center">
+              <span className="text-2xl">📋</span>
+              <span className="text-sm text-black/40">هیچ عادتی ثبت نشده</span>
+            </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {habitStats.map((habit) => (
                 <div
                   key={habit.id}
-                  className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
+                  className="flex items-center justify-between rounded-2xl border border-black bg-white px-4 py-3"
                 >
                   <div className="min-w-0 flex-1">
-                    <div className="truncate text-sm font-medium text-(--text-foreground)">{habit.HabitName}</div>
-                    <div className="mt-0.5 text-xs text-slate-400">{habit.totalCompleted} بار انجام شده</div>
+                    <div className="truncate text-sm font-semibold text-black">{habit.HabitName}</div>
+                    <div className="mt-0.5 text-xs text-black/40">{habit.totalCompleted} بار انجام شده</div>
                   </div>
-                  <div className="shrink-0 text-right">
+                  <div className="shrink-0">
                     {habit.streak > 0 ? (
-                      <span className="font-bold text-amber-400">🔥 {habit.streak} روز</span>
+                      <span className="rounded-full border border-black bg-(--yellow) px-2.5 py-1 text-xs font-bold text-black">
+                        🔥 {habit.streak} روز
+                      </span>
                     ) : (
-                      <span className="text-xs text-slate-600">بدون streak</span>
+                      <span className="rounded-full border border-black/15 bg-black/5 px-2 py-1 text-xs text-black/30">
+                        بدون streak
+                      </span>
                     )}
                   </div>
                 </div>
@@ -150,25 +177,32 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Priority breakdown */}
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-          <h2 className="mb-4 text-sm font-semibold text-(--text-foreground)">توزیع اولویت تسک‌ها</h2>
-          <div className="space-y-3">
+        <div className="rounded-3xl border border-black bg-white p-4">
+          <div className="mb-4 flex items-center gap-2 rounded-2xl border border-black bg-(--yellow) px-4 py-3">
+            <div className="h-2.5 w-2.5 rounded-full bg-black" />
+            <h2 className="font-bold text-black">توزیع اولویت تسک‌ها</h2>
+          </div>
+
+          <div className="space-y-4">
             {[
-              { label: "اولویت بالا", count: priorityBreakdown.high, color: "bg-red-500", textColor: "text-red-400" },
-              { label: "اولویت متوسط", count: priorityBreakdown.medium, color: "bg-amber-400", textColor: "text-amber-400" },
-              { label: "اولویت پایین", count: priorityBreakdown.low, color: "bg-emerald-500", textColor: "text-emerald-400" },
+              { label: "اولویت بالا", count: priorityBreakdown.high, bar: "bg-red-500" },
+              { label: "اولویت متوسط", count: priorityBreakdown.medium, bar: "bg-(--yellow)" },
+              { label: "اولویت پایین", count: priorityBreakdown.low, bar: "bg-emerald-500" },
             ].map((item) => {
               const total = tasks.length || 1;
               const pct = Math.round((item.count / total) * 100);
               return (
                 <div key={item.label}>
-                  <div className="mb-1 flex justify-between text-xs">
-                    <span className="text-slate-400">{item.label}</span>
-                    <span className={item.textColor}>{item.count} ({pct}%)</span>
+                  <div className="mb-2 flex justify-between text-xs">
+                    <span className="font-medium text-black">{item.label}</span>
+                    <span className="font-bold text-black">
+                      {item.count}
+                      <span className="mr-1 font-normal text-black/40">({pct}%)</span>
+                    </span>
                   </div>
-                  <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden">
+                  <div className="h-3 w-full overflow-hidden rounded-full border border-black/20 bg-black/5">
                     <div
-                      className={`h-2 rounded-full transition-all ${item.color}`}
+                      className={`h-3 rounded-full transition-all ${item.bar}`}
                       style={{ width: `${pct}%` }}
                     />
                   </div>
@@ -177,12 +211,12 @@ export default function AnalyticsPage() {
             })}
           </div>
 
-          <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
-            <div className="text-2xl font-bold text-(--text-foreground)">{tasks.length}</div>
-            <div className="mt-1 text-xs text-slate-400">کل تسک‌های ثبت‌شده</div>
+          <div className="mt-6 rounded-2xl border border-black bg-(--lightBlue) p-4 text-center">
+            <div className="text-3xl font-bold text-black">{tasks.length}</div>
+            <div className="mt-1 text-xs font-medium text-black/60">کل تسک‌های ثبت‌شده</div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
