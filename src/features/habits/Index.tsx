@@ -112,9 +112,9 @@ export default function Index() {
   };
 
   return (
-    <div className="mx-4 flex min-h-[95vh] max-w-full flex-col gap-5 py-5 lg:mx-8">
+    <div className="mx-4 flex min-h-[95vh] max-w-full flex-col gap-5 py-5 lg:mx-8 ">
       {/* Header */}
-      <div className="relative border border-black  px-6 py-5 rounded-3xl">
+      <div className="relative border border-black  px-6 py-5 rounded-3xl bg-[#a2abab]">
         <div className="flex items-center justify-between">
           <div>
             <div className="mb-1 flex items-center gap-2">
@@ -148,7 +148,7 @@ export default function Index() {
                 <button
                   type="button"
                   onClick={handleCancelEdit}
-                  className="text-xs text-black hover:text-black border border-black rounded-3xl px-2 py-1 transition-all duration-200"
+                  className="text-xs text-white bg-black  border border-black rounded-3xl px-3 py-2 transition-all duration-200"
                 >
                   انصراف
                 </button>
@@ -174,7 +174,11 @@ export default function Index() {
                   />
                   <span
                     className={`text-[15px] font-semibold transition-colors ${
-                      isCurrent ? "text-black" : isVisited ? "text-black/70 hover:text-black" : "text-slate-600"
+                      isCurrent
+                        ? "text-black"
+                        : isVisited
+                          ? "text-black/70 hover:text-black"
+                          : "text-slate-600"
                     }`}
                   >
                     {label}
