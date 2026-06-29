@@ -65,9 +65,9 @@ export default function AnalyticsPage() {
     [tasks],
   );
   const weekCompleted = weekTasks.filter((t) => t.completed).length;
-  const weekScore = weekTasks.length === 0 ? 0 : Math.round((weekCompleted / weekTasks.length) * 100);
+  const weekScore = weekTasks.length === 0 ? 0 : Math.round((weekCompleted / weekTasks.length) * 100) || 0;
   const totalCompleted = tasks.filter((t) => t.completed).length;
-  const maxScore = Math.max(...last14.map((d) => d.score), 1);
+  const maxScore = last14.reduce((max, d) => Math.max(max, d.score), 1);
 
   const priorityBreakdown = useMemo(() => {
     const high = tasks.filter((t) => t.priority === "high").length;
