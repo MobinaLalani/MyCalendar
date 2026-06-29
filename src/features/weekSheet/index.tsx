@@ -53,18 +53,21 @@ export default function WeeklyView() {
           <div className="flex items-center gap-2">
             <button
               onClick={goToPrevWeek}
+              aria-label="هفته قبل"
               className="flex h-9 w-9 items-center justify-center rounded-xl border border-black bg-(--lightBlue) text-black transition hover:opacity-80"
             >
               <ChevronDownIcon className="rotate-270" />
             </button>
             <button
               onClick={goToThisWeek}
+              aria-label="برو به هفته جاری"
               className="rounded-xl border border-black bg-(--yellow) px-4 py-2 text-sm font-semibold text-black transition hover:opacity-80"
             >
               این هفته
             </button>
             <button
               onClick={goToNextWeek}
+              aria-label="هفته بعد"
               className="flex h-9 w-9 items-center justify-center rounded-xl border border-black bg-(--lightBlue) text-black transition hover:opacity-80"
             >
               <ChevronDownIcon className="rotate-90" />
