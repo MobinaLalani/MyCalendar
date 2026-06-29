@@ -122,7 +122,7 @@ export default function WeeklyView() {
 
               {/* Content area — notebook lines */}
               <div
-                className="flex-1 overflow-hidden rounded-b-3xl px-2 pb-3 space-y-1"
+                className="flex-1 min-h-20 overflow-hidden rounded-b-3xl px-2 pb-3 space-y-1"
                 style={{
                   backgroundImage: `repeating-linear-gradient(
                     to bottom,
