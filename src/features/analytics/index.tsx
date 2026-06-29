@@ -86,8 +86,15 @@ export default function AnalyticsPage() {
             آمار و تحلیل
           </span>
         </div>
-        <h1 className="text-2xl font-bold text-black">گزارش‌ها</h1>
-        <p className="mt-1 text-sm text-black/60">نمای کلی عملکرد شما</p>
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-bold text-black">گزارش‌ها</h1>
+            <p className="mt-1 text-sm text-black/60">نمای کلی عملکرد شما</p>
+          </div>
+          <div className="rounded-full border border-black bg-(--yellow) px-4 py-2">
+            <span className="text-sm font-bold text-black">{tasks.length} تسک</span>
+          </div>
+        </div>
       </div>
 
       {/* Summary cards */}
