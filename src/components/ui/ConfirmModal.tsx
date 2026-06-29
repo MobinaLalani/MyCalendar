@@ -38,25 +38,25 @@ export default function ConfirmModal({
       onClick={onCancel}
     >
       <div
-        className="relative w-full max-w-sm mx-4 rounded-2xl border border-black/10 bg-white p-6 shadow-2xl"
+        className="relative w-full max-w-sm mx-4 rounded-2xl border border-black bg-white p-6 shadow-2xl"
         dir="rtl"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="mb-2 text-base font-bold text-slate-900">{title}</h2>
-        <p className="mb-6 text-sm text-slate-600">{message}</p>
+        <h2 className="mb-2 text-base font-bold text-black">{title}</h2>
+        <p className="mb-6 text-sm text-black/60">{message}</p>
 
         <div className="flex gap-2">
           <button
             type="button"
             onClick={onConfirm}
-            className="flex-1 rounded-xl border border-red-500 bg-red-500 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-600"
+            className="flex-1 rounded-xl border border-black bg-(--red) py-2.5 text-sm font-semibold text-white transition-colors hover:opacity-85"
           >
             {confirmLabel}
           </button>
           <button
             type="button"
             onClick={onCancel}
-            className="flex-1 rounded-xl border border-black/15 bg-slate-100 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-200"
+            className="flex-1 rounded-xl border border-black bg-white py-2.5 text-sm font-semibold text-black transition-colors hover:bg-black/5"
           >
             {cancelLabel}
           </button>
