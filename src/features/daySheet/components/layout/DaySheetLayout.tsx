@@ -125,9 +125,8 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
 
           <div className="space-y-2.5 p-4">
             {selectedHabits.length === 0 ? (
-              <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-white/10 px-4 py-8 text-center">
-                {/* <span className="text-2xl">📋</span> */}
-                <span className="text-sm text-slate-400">برای این روز عادتی ثبت نشده</span>
+              <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-black/20 px-4 py-8 text-center">
+                <span className="text-sm text-black/40">برای این روز عادتی ثبت نشده</span>
               </div>
             ) : null}
 
