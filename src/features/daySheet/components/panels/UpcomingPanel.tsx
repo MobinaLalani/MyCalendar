@@ -17,13 +17,13 @@ const UpcomingPanel: React.FC<UpcomingPanelProps> = ({ items }) => {
 
   return (
     <div>
-      <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+      <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-black/50">
         در پیش رو
       </h3>
       {upcoming.length === 0 ? (
-        <div className="flex flex-col items-center gap-1.5 rounded-xl border border-dashed border-white/10 px-4 py-5 text-center">
+        <div className="flex flex-col items-center gap-1.5 rounded-xl border border-dashed border-black/20 px-4 py-5 text-center">
           <span className="text-xl">🎉</span>
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-black/40">
             هیچ موردی در پیش رو نیست
           </span>
         </div>
@@ -32,13 +32,9 @@ const UpcomingPanel: React.FC<UpcomingPanelProps> = ({ items }) => {
           {upcoming.map((i) => (
             <div
               key={i.id}
-              className="group flex items-center gap-3 rounded-3xl border border-black bg-white/3 px-3 py-4 transition-all duration-200 hover:scale-[1.02]"
+              className="group flex items-center gap-3 rounded-3xl border border-black bg-white px-3 py-4 transition-all duration-200 hover:scale-[1.02]"
             >
-              {/* <div
-                className="h-7 w-1 shrink-0 rounded-full"
-                style={{ backgroundColor: i.color || "#6366f1" }}
-              /> */}
-              <span className="flex-1 truncate text-sm text-black transition-colors ">
+              <span className="flex-1 truncate text-sm text-black transition-colors">
                 {i.title}
               </span>
               <span className="shrink-0 font-mono text-xs text-(--muted-foreground)">
