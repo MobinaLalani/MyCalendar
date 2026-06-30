@@ -141,24 +141,20 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
                   key={habit.id}
                   className={`group relative overflow-hidden rounded-xl border p-4 transition-all duration-300 ${
                     isDoneToday
-                      ? "border-emerald-500/25 bg-linear-to-r from-emerald-500/10 to-teal-500/5"
-                      : "border-white/8 bg-white/3 hover:border-white/15 hover:bg-white/6"
+                      ? "border-black bg-(--lightBlue)"
+                      : "border-black/20 bg-white hover:border-black/50"
                   }`}
                 >
                   <div className="relative flex items-center justify-between gap-3">
                     <div className="min-w-0 flex-1">
-                      <div
-                        className={`truncate text-sm font-semibold ${
-                          isDoneToday ? "text-emerald-100" : "text-white"
-                        }`}
-                      >
+                      <div className="truncate text-sm font-semibold text-black">
                         {habit.HabitName}
                       </div>
-                      <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-slate-400">
+                      <div className="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-black/50">
                         {streak > 0 && (
-                          <span className="font-semibold text-amber-400">🔥 {streak} روز</span>
+                          <span className="font-semibold text-amber-500">🔥 {streak} روز</span>
                         )}
-                        <span className="rounded-full border border-white/8 bg-white/8 px-2 py-0.5">
+                        <span className="rounded-full border border-black/15 bg-black/5 px-2 py-0.5">
                           {habit.HabitFrequency}× هفته
                         </span>
                       </div>
@@ -168,8 +164,8 @@ const DaySheetLayout: React.FC<DaySheetLayoutProps> = ({ selectedDateKey }) => {
                       onClick={() => toggleHabitDate(habit.id, effectiveDateKey)}
                       className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 ${
                         isDoneToday
-                          ? "border border-emerald-500/20 bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30"
-                          : "border border-white/10 bg-white/8 text-slate-300 hover:bg-white/15"
+                          ? "border border-black bg-(--yellow) text-black hover:opacity-80"
+                          : "border border-black/20 bg-black/5 text-black/60 hover:border-black/50"
                       }`}
                     >
                       {isDoneToday ? "✓ انجام شد" : "انجام نشده"}
