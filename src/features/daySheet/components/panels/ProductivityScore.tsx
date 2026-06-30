@@ -35,7 +35,7 @@ const ProductivityScore: React.FC<ProductivityScoreProps> = ({ items }) => {
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-black/50">
           بهره‌وری
         </h3>
         <div className="flex items-center gap-2">
@@ -43,7 +43,7 @@ const ProductivityScore: React.FC<ProductivityScoreProps> = ({ items }) => {
           <span className={`text-lg font-bold leading-none ${config.color}`}>{score}%</span>
         </div>
       </div>
-      <div className="relative h-2.5 w-full overflow-hidden rounded-full border border-white/6 bg-white/6">
+      <div className="relative h-2.5 w-full overflow-hidden rounded-full border border-black/10 bg-black/6">
         <div
           className={`h-full rounded-full bg-linear-to-r transition-all duration-700 ease-out ${config.gradient}`}
           style={{ width: `${score}%` }}
