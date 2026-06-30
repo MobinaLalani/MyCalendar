@@ -57,15 +57,15 @@ export default function FocusTimer() {
       className={`overflow-hidden rounded-3xl  border border-black shadow-xl backdrop-blur-xl`}
     >
       {/* Header */}
-      <div className="border-b border-white/8 px-5 py-4">
+      <div className="border-b border-black/10 px-5 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className={`h-1.5 w-4 rounded-full bg-linear-to-r ${cfg.accentClass}`} />
             <h3 className="text-sm font-semibold text-black">تایمر تمرکز</h3>
           </div>
           {completedPomodoros > 0 && (
-            <div className="flex items-center gap-1.5 rounded-lg border border-amber-500/20 bg-amber-500/15 px-2.5 py-1">
-              <span className="text-[11px] font-medium text-amber-300">
+            <div className="flex items-center gap-1.5 rounded-lg border border-black bg-(--yellow) px-2.5 py-1">
+              <span className="text-[11px] font-bold text-black">
                 🍅 {completedPomodoros} پومودورو
               </span>
             </div>
@@ -125,7 +125,7 @@ export default function FocusTimer() {
           {phase === "idle" && (
             <button
               onClick={start}
-              className="flex-1 rounded-xl bg-(--sidebar) py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all duration-200 hover:bg-indigo-400"
+              className="flex-1 rounded-xl border border-black bg-black py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:opacity-80"
             >
               ▶ شروع تمرکز
             </button>
@@ -135,13 +135,13 @@ export default function FocusTimer() {
             <>
               <button
                 onClick={pause}
-                className="flex-1 rounded-xl border border-amber-400/20 bg-amber-500/15 py-2.5 text-sm font-semibold text-amber-300 transition-all duration-200 hover:bg-amber-500/25"
+                className="flex-1 rounded-xl border border-black bg-(--yellow) py-2.5 text-sm font-semibold text-black transition-all duration-200 hover:opacity-80"
               >
                 {isRunning ? "⏸ توقف" : "▶ ادامه"}
               </button>
               <button
                 onClick={reset}
-                className="rounded-xl border border-white/10 bg-white/6 px-4 py-2.5 text-sm text-slate-400 transition-all duration-200 hover:bg-white/12"
+                className="rounded-xl border border-black/20 bg-black/5 px-4 py-2.5 text-sm text-black/50 transition-all duration-200 hover:border-black/40"
               >
                 ↺
               </button>
@@ -152,13 +152,13 @@ export default function FocusTimer() {
             <>
               <button
                 onClick={startBreak}
-                className="flex-1 rounded-xl border border-emerald-500/20 bg-emerald-500/15 py-2.5 text-sm font-semibold text-emerald-300 transition-all duration-200 hover:bg-emerald-500/25"
+                className="flex-1 rounded-xl border border-black bg-(--lightBlue) py-2.5 text-sm font-semibold text-black transition-all duration-200 hover:opacity-80"
               >
                 ▶ شروع استراحت
               </button>
               <button
                 onClick={reset}
-                className="rounded-xl border border-white/10 bg-white/6 px-4 py-2.5 text-sm text-slate-400 transition-all duration-200 hover:bg-white/12"
+                className="rounded-xl border border-black/20 bg-black/5 px-4 py-2.5 text-sm text-black/50 transition-all duration-200 hover:border-black/40"
               >
                 ↺
               </button>
@@ -168,7 +168,7 @@ export default function FocusTimer() {
           {phase === "done" && (
             <button
               onClick={reset}
-              className="flex-1 rounded-xl border border-violet-500/20 bg-violet-500/15 py-2.5 text-sm font-semibold text-violet-300 transition-all duration-200 hover:bg-violet-500/25"
+              className="flex-1 rounded-xl border border-black bg-(--yellow) py-2.5 text-sm font-semibold text-black transition-all duration-200 hover:opacity-80"
             >
               🔄 شروع مجدد
             </button>
