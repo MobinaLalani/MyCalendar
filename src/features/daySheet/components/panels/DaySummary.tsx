@@ -15,13 +15,13 @@ const DaySummary: React.FC<DaySummaryProps> = ({ items }) => {
       <div className="mb-1 flex items-center justify-between">
         
         <span className="text-sm font-semibold text-black">خلاصه روز</span>
-        <span className="text-sm font-bold text-slate-700">
+        <span className="text-sm font-bold text-black">
           {completed}/{total}
         </span>
       </div>
-      <div className="h-3 w-full overflow-hidden rounded-full bg-slate-200">
+      <div className="h-3 w-full overflow-hidden rounded-full border border-black/10 bg-black/8">
         <div
-          className="h-full rounded-full bg-emerald-500 transition-all duration-300"
+          className="h-full rounded-full bg-(--yellow) transition-all duration-300"
           style={{ width: `${percent}%` }}
         />
       </div>
